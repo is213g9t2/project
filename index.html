@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>Album example · Bootstrap v5.1</title>
+
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
+
+
+
+  <!-- Bootstrap core CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .card-img-top {
+      width: 100%;
+      height: 15vw;
+      object-fit: cover;
+    }
+  </style>
+
+  <!-- VUE CDN -->
+  <script src="https://unpkg.com/vue@next"></script>
+
+
+</head>
+
+<body>
+
+  <!-- <header>
+    <div class="collapse bg-dark" id="navbarHeader">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8 col-md-7 py-4">
+            <h4 class="text-white">About</h4>
+            <p class="text-muted">Add some information about the album below, the author, or any other background
+              context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off
+              to some social networking sites or contact information.</p>
+          </div>
+          <div class="col-sm-4 offset-md-1 py-4">
+            <h4 class="text-white">Contact</h4>
+            <ul class="list-unstyled">
+              <li><a href="#" class="text-white">Follow on Twitter</a></li>
+              <li><a href="#" class="text-white">Like on Facebook</a></li>
+              <li><a href="#" class="text-white">Email me</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+          <img class="img-fluid" src="assets/logo.png" alt="" width=50px >
+          <strong>Album</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
+          aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+  </header> -->
+
+  <header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <!-- <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg> -->
+          <img class="mx-3" src="assets/logo.png" alt="" width=40px>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">My Policies</a></li>
+
+        </ul>
+
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+        </form>
+
+        <!-- <div class="text-end">
+          <button type="button" class="btn btn-outline-light me-2">Login</button>
+          <button type="button" class="btn btn-warning">Sign-up</button>
+        </div> -->
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="fw-light">Travel Assured</h1>
+          <p class="lead text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem aperiam
+            quis deserunt dignissimos ipsa corrupti veritatis quo pariatur. Fuga consequuntur quaerat assumenda at
+            sapiente sunt explicabo consectetur eaque tempore expedita.</p>
+          <!-- <p>
+            <a href="#" class="btn btn-primary my-2">Main call to action</a>
+            <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          </p> -->
+        </div>
+      </div>
+    </section>
+
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="app">
+
+          <div class="col" v-for="policy in policies">
+
+            <div class="card shadow-sm h-100">
+
+              <img class="card-img-top" :src="policy.image">
+
+              <div class="card-body">
+                <h5 class="card-title">{{policy.region}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">${{policy.price }}</h6>
+
+                <p class="card-text">{{policy.desc}}</p>
+                <div class="d-flex justify-content-between align-items-center">
+
+                  <a href="#" class="btn btn-warning">Sign Up!</a>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <script>
+            Vue.createApp({
+              data() {
+                return {
+
+
+
+
+                  policies: [
+                    {
+                      id: 1,
+                      region: 'Asia',
+                      price: 100,
+                      image: "assets/regions/1.jpg",
+                      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem aperiam quis deserunt dignissimos ipsa corrupti veritatis quo pariatur."
+                    },
+
+                    {
+                      id: 2,
+                      region: 'Oceania',
+                      price: 200,
+                      image: "assets/regions/2.jpg",
+                      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem aperiam quis deserunt dignissimos ipsa corrupti veritatis quo pariatur."
+                    },
+
+                    {
+                      id: 3,
+                      region: 'Europe',
+                      price: 300,
+                      image: "assets/regions/3.jpg",
+                      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem aperiam quis deserunt dignissimos ipsa corrupti veritatis quo pariatur."
+                    },
+
+                    {
+                      id: 4,
+                      region: 'North America',
+                      price: 400,
+                      image: "assets/regions/4.jpg",
+                      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem aperiam quis deserunt dignissimos ipsa corrupti veritatis quo pariatur."
+                    },
+
+                    {
+                      id: 5,
+                      region: 'South America',
+                      price: 500,
+                      image: "assets/regions/5.jpg",
+                      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem aperiam quis deserunt dignissimos ipsa corrupti veritatis quo pariatur."
+                    },
+
+                    {
+                      id: 6,
+                      region: 'Africa',
+                      price: 600,
+                      image: "assets/regions/6.jpg",
+                      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem aperiam quis deserunt dignissimos ipsa corrupti veritatis quo pariatur."
+                    }
+
+                  ]
+                }
+              }
+            }
+            ).mount('#app')
+          </script>
+
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="text-muted py-5">
+    <div class="container">
+      <p class="float-end mb-1">
+        <a href="#">Back to top</a>
+      </p>
+      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
+      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
+          href="../getting-started/introduction/">getting started guide</a>.</p>
+    </div>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>
