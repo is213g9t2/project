@@ -1,0 +1,40 @@
+{
+    
+    "customer":
+    {
+    "213":
+    {
+        "Dob": "17-03-2003",
+        "EmailAddress": "appletan@gmal.com",
+        "Gender": "Female",
+        "MedicalConditions": ["NIL"],
+        "MobileNumber": "91234567",
+        "Name": "Apple",
+        "Password": "iLoveApples",
+        "UploadDocument": ""
+    },
+
+    "312":
+    {
+        "Dob": "10-10-1981",
+        "EmailAddress": "brettlim@gmail.com",
+        "Gender": "Male",
+        "MedicalConditions": ["NIL"],
+        "MobileNumber": "89996777",
+        "Name": "Brett",
+        "Password": "brettlovescoding",
+        "UploadDocument": ""
+    },
+    "123":
+    {
+        "Dob": "09-12-2001",
+        "EmailAddress": "rachelgan@gmal.com",
+        "Gender": "Female",
+        "MedicalConditions": ["NIL"],
+        "MobileNumber": "92039102",
+        "Name": "Rachel",
+        "Password": "rachelgan",
+        "UploadDocument": ""
+    }
+}
+}
