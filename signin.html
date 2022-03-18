@@ -7,7 +7,9 @@
   <meta name="description" content="">
   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
   <meta name="generator" content="Hugo 0.88.1">
-  <title>Signin Template · Bootstrap v5.1</title>
+
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <title>Sign in with Google</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
 
@@ -18,7 +20,8 @@
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
   <!-- GOOGLE SIGN IN -->
-  <meta name="google-signin-client_id" content="51329492354-jk8u0c693iluka4jrjdmltkqvnm6p3kg.apps.googleusercontent.com">
+  <meta name="google-signin-client_id" content="212495606374-bd7o14od4050kbold0usvmdt4r9fcibt.apps.googleusercontent.com">
+  
 
 
   <style>
@@ -85,6 +88,30 @@
 
 
 </head>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAR_-kFMeF3Uc_zzvBaJDGj35PjO8fYezQ",
+    authDomain: "esdg9t02-insurance.firebaseapp.com",
+    databaseURL: "https://esdg9t02-insurance-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "esdg9t02-insurance",
+    storageBucket: "esdg9t02-insurance.appspot.com",
+    messagingSenderId: "212495606374",
+    appId: "1:212495606374:web:45dc9e3e99da4b815003a7"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  import { GoogleAuthProvider } from "firebase/auth";
+
+  const provider = new GoogleAuthProvider();
+</script>
 
 <body class="text-center">
 
