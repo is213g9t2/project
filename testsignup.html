@@ -1,0 +1,51 @@
+<html lang="en">
+
+<head>
+    <title>Customer Sign Up</title></head>
+    <!-- Vue 3 -->
+    <!-- <script src='https://cdn.jsdelivr.net/npm/vue@3.0.2/dist/vue.global.js'></script> -->
+    <!--jQuery CDN-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<body>
+
+
+<P>Post some values to a json file</P>
+
+<form method="POST">
+    <label for="username">Username:</label> <input type="text" id="username" name="username" v-model="username">
+    <label for="password">Password:</label><input type="text" id="password" name="password" v-model="password">
+    <button type="submit" onclick="signup()">Sign Up</button>
+</form>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script>
+
+function signup(){
+    const username = document.getElementById("username").value;
+    console.log(username)
+    const password = document.getElementById("password").value;
+    console.log(password)
+
+    const customer = {
+        Username: username,
+        Password: password
+    }
+
+    customerstr = String(customer)
+    const c = JSON.stringify(customer)
+    console.log(c)
+
+    $.ajax({
+        type: "POST",
+        url: "/customer/" + customerstr,
+        data: JSON.stringify(c),
+        contentType: "application/json"
+    })
+    
+    return JSON.stringify(c)
+}
+
+</script>
+
+</body>
+</html>
