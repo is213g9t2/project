@@ -11,11 +11,11 @@
 
 <P>Post some values to a json file</P>
 
-<form method="POST">
+
     <label for="username">Username:</label> <input type="text" id="username" name="username" v-model="username">
     <label for="password">Password:</label><input type="text" id="password" name="password" v-model="password">
     <button type="submit" onclick="signup()">Sign Up</button>
-</form>
+
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script>
@@ -26,23 +26,25 @@ function signup(){
     const password = document.getElementById("password").value;
     console.log(password)
 
-    const customer = {
+    let customer = JSON.stringify({
         Username: username,
         Password: password
-    }
-
-    customerstr = String(customer)
-    const c = JSON.stringify(customer)
-    console.log(c)
-
-    $.ajax({
-        type: "POST",
-        url: "/customer/" + customerstr,
-        data: JSON.stringify(c),
-        contentType: "application/json"
     })
-    
-    return JSON.stringify(c)
+
+    fetch('http://localhost:5500/customer/'+ customer,
+        {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: customer
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            result = data.data;
+            console.log(result);
+        })
 }
 
 </script>

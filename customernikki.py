@@ -20,19 +20,23 @@ ref = db.reference("/")
 @app.route("/customer/<string:details>", methods=['POST'])
 def customer(details):
     print(details)
+    dictionary = json.loads(details)
     # Writes new account details to customer.json
-    def write_json(data, filename="customer.json"):
-        with open (filename, "w") as datafile:
+    def write_json(details, filename="customer.json"):
+        with open (filename, "r+") as datafile:
+            data = json.load(datafile)
+            data['customer']["1000"] = dictionary
+            datafile.seek(0)
             json.dump(data, datafile, indent=4)
 
-        with open ("customer.json") as json_file:
-            data = json.load(json_file)
-            newvalues = details
-            # newvalues = {"Username": "testing", "Password": "testing123"}
-            data["customer"]["1000"] = newvalues
-            # data.append(newvalues)
+        # with open ("customer.json") as json_file:
+        #     jsonfile = json.load(json_file)
+        #     newvalues = details
+        #     # newvalues = {"Username": "testing", "Password": "testing123"}
+        #     jsonfile["customer"]["1000"] = {newvalues}
+        #     # data.append(newvalues)
 
-        write_json(data)
+    write_json(details)
 
         # Reads customer.json and publishes on Firebase
         # with open("customer.json", "r") as f:

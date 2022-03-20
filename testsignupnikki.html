@@ -25,16 +25,13 @@ function signup(){
     const password = document.getElementById("password").value;
     console.log(password)
 
-  
-
-
     let c = JSON.stringify( {
         Username: username,
         Password: password
     })
     console.log(c)
 
-    fetch('http://localhost:5500/customer/'+username,
+    fetch('http://localhost:5500/customer/'+ c,
         {
             method: "POST",
             headers: {
