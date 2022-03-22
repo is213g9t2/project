@@ -156,8 +156,41 @@
   <!-- GOOGLE SIGN IN JS -->
   <script>
     function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+      var profile = googleUser.getBasicProfile();
+      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+      console.log('Name: ' + profile.getName());
+      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+
+      const customer_ID = profile.getId();
+      const fullName = profile.getName();
+      const email = profile.getEmail();
+
+      let customer = JSON.stringify({
+        Username: customer_ID,
+        Fullname: fullName,
+        Email: email
+
+      })
+
+      fetch('http://localhost:5500/customer/'+ customer,
+        {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
+            },
+            body: customer
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            result = data.data;
+            console.log(result);
+        })
+
     }
+
+    
     function onFailure(error) {
       console.log(error);
     }
