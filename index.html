@@ -110,28 +110,9 @@
 
     <div class="album py-5 bg-light">
       <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="app">
-
-          <div class="col" v-for="policy in policies">
-
-            <div class="card shadow-sm h-100">
-
-              <img class="card-img-top" :src="policy.image">
-
-              <div class="card-body">
-                <h5 class="card-title" id="policy-region">${{policy.region }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">${{policy.price }}</h6>
-
-                <p class="card-text">{{policy.desc}}</p>
-                <div class="d-flex justify-content-between align-items-center">
-
-                  <a href="#" class="btn btn-warning">Sign Up!</a>
-
-
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="comehere"></div>
+      </div>
+    </div>
 
           <script>
 
@@ -144,7 +125,7 @@
             // Display an error under the main container
             $('#main-container')
                 .append("<label>"+message+"</label>");
-        }
+            }
 
             $(async() => {           
             var serviceURL = "http://localhost:5500/catalog";
@@ -159,17 +140,39 @@
                  if (response.status === 200) {
                     // success case
                     var catalog = result; 
-                 
                     
-                  console.log(catalog)
-
+                    
+                    console.log(catalog)
+                    var str = ''
+                    var count = 0
                     for (const place in catalog) {
-                      region = catalog[place]["region"]
-                      $('#policy-region').append(region);
-                      console.log(region)
+                        console.log(catalog[place].length)
+                      for (const each in place){
+                        count += 1
+                        console.log(catalog[place][each]['region'])
+                        str += `
+                          <div class="col">
+                            <div class="card shadow-sm h-100">
 
+                              <img class="card-img-top" :src="/${catalog[place][each]['image']}">
+
+                              <div class="card-body">
+                                <h5 class="card-title" id="${catalog[place][each]['region']}">${catalog[place][each]['region']}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">${catalog[place][each]['price']}</h6>
+
+                                <p class="card-text">${catalog[place][each]['description']}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <a href="#" class="btn btn-warning">Sign Up!</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        `
+                        if (count == catalog[place].length){
+                          document.getElementById('comehere').innerHTML = str
+                        }
+                      }
                     }
-                    // console.log(rows);
                   }
                      else if (response.status == 404) {
                         // No books
@@ -182,24 +185,19 @@
                     // Errors when calling the service; such as network error, 
                     // service offline, etc
                     showError
-        ('There is a problem retrieving books data, please try again later.<br />' + error);
+                    ('There is a problem retrieving books data, please try again later.<br />' + error);
                 } // error
-        });
+            });
         
         Vue.createApp({
               data() {
                 return {
-                  policies : catalog
+                  // policies : catalog
                       // catalog
-                
-              }}}).mount('#app')
+              }}
+        }).mount('#app')
 
           </script>
-
-
-        </div>
-      </div>
-    </div>
 
   </main>
 

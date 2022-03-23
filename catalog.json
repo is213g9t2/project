@@ -5,7 +5,7 @@
             {
                 "region":"Asia",
                 "price": "800",
-                "desc": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
+                "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "id": "001",
                 "image": "assets/regions/1.jpg"
             
