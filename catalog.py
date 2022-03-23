@@ -19,29 +19,25 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 	})
 
 
-# db = ???(app)
 
 ref = db.reference("/")
 
 
 #Get all available policies
-@app.route("/catalog")
+@app.route("/catalog", methods=['GET'])
 def get_all():
-    catalog = request.get_json()
-    result = json.loads(catalog)
+    catalog = open("catalog.json")
+    result = json.load(catalog)
 
-    if len(result):
-        return jsonify(
-            {
-                "code": 200,
-                "data": {
-                    "catalog": [result.json() for region in catalog]
-                }
-            }
-        )
-    return jsonify(
-        {
-            "code": 404,
-            "message": "There are no policies available."
-        }
-    ), 404
+    return result,200
+    
+    # return jsonify(
+    #     {
+    #         "code": 404,
+    #         "message": "There are no policies available."
+    #     }
+    # ), 404
+
+
+if __name__ == "__main__":
+    app.run(port='5500',debug=True)
