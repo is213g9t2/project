@@ -4,38 +4,41 @@
 
             {
                 "region":"Asia",
-                "price": "1000",
-                "desc": "asiaa",
-                "countries": "alot",
+                "price": "800",
+                "desc": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "id": "001",
                 "image": "assets/regions/1.jpg"
             
             },
         
             {
-                "region":"europe",
+                "region":"Europe",
                 "price": "1000",
-                "description": "europe",
-                "countries": "alot",
-                "policyid": "002"
+                "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
+                "id": "002",
+                "image": "assets/regions/2.jpg"
+
             
             },
         
             {
-                "region":"north america",
+                "region":"North America",
                 "price": "1000",
-                "description": "north america",
-                "countries": "alot",
-                "policyid": "003"
+                "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
+                "id": "003",
+                "image": "assets/regions/3.jpg"
+
             
             },
 
             {
-                "region":"south america",
+                "region":"South America",
                 "price": 1000,
-                "description": "south america",
+                "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "countries": "alot",
-                "policyid": "004"
+                "id": "004",
+                "image": "assets/regions/4.jpg"
+
             
             },
         
@@ -43,9 +46,11 @@
             {
                 "region":"africa",
                 "price": 1000,
-                "description": "africa",
+                "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "countries": "alot",
-                "policyid": "005"
+                "id": "005",
+                "image": "assets/regions/5.jpg"
+
             
             }
     
