@@ -44,9 +44,8 @@ def create_message(sender, to, subject, message_text):
     return base64.urlsafe_b64encode(mimeMessage.as_bytes() ).decode()
 
 
-def main(raw_string):
-    """Shows basic usage of the Gmail API.
-    Lists the user's Gmail labels.
+def main(EmailObject):
+    """Sends out the email object
     """
     creds = None
     # The file token.json stores the user's access and refresh tokens, and is
@@ -69,23 +68,8 @@ def main(raw_string):
     try:
         # Call the Gmail API
         service = build('gmail', 'v1', credentials=creds)
-        # results = service.users().labels().list(userId='me').execute()
-        # labels = results.get('labels', [])
 
-        # if not labels:
-        #     print('No labels found.')
-        #     return
-        # print('Labels:')
-        # for label in labels:
-        #     print(label['name'])
-
-        # raw_string = create_message("esdg9t02@gmail.com", "hengweishin@gmail.com", "testing email subject", "hello world content")
-
-        # message = (service.users().messages().send(userId='me', body=message).execute())
-
-        message = service.users ().messages ().send(userId='me', body={'raw': raw_string}).execute()
-        # print('Message Id: %s' % message['id'])
-        # return message
+        message = service.users ().messages ().send(userId='me', body={'raw': EmailObject}).execute()
 
         print(message)
 
