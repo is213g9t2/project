@@ -16,31 +16,44 @@ from firebase_admin import db
 ref = db.reference("/")
 
 # New insurance record created 
-@app.route("/catalog", methods=['POST'])
-def create_insurance(details):
+@app.route("/catalog", methods=['GET'])
+def create_insurance():
 
     catalog = open("catalog.json")
     result = json.load(catalog)
 
-    print(details)
-    dictionary = json.loads(details)
+    return result
 
-    # Writes new account details to customer.json
-    # def write_json(details, filename="activepolicies.json"):
-    #     with open (filename, "r+") as datafile:
-    #         data = json.load(datafile)
-    #         data['activepolicies']["001"] = dictionary
-    #         datafile.seek(0)
-    #         json.dump(data, datafile, indent=4)
 
-    # write_json(details)
 
-    return jsonify(
-        {
-            "data": details
-        }
-    ), 201
 
+
+#@CALISTA: i think to do this, the json file need to have something. else it wont work. or else u just push into db?
+# @app.route("/activepolicies/<string:details>", methods=['POST'])
+# def activepolicies(details):
+    
+#     details = request.get_json()
+#     result = json.loads(details)
+#     print(type(details))
+
+#     def write_json(details, filename="activepolicies.json"):
+#         with open (filename, "r+") as datafile:
+#             data = json.load(datafile)
+#             dictionary = json.loads(details)
+#             print(dictionary)
+#             # data['activepolicies']["001"] = dictionary
+#             # datafile.seek(0)
+#             json.dump(data, datafile, indent=4)
+
+#     write_json(details)
+
+#     return jsonify(
+#         {
+#             "data": details
+#         }
+#     ), 201
+
+ 
 
 
 

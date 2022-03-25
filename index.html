@@ -108,11 +108,10 @@
 </table>
     </div> -->
 
-    <div class="album py-5 bg-light" id="boing">
+    <div class="album py-5 bg-light">
       <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <div id="comehere"> 
-          </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="comehere">
+
         </div>
       </div>
     </div>
@@ -130,6 +129,7 @@
             //     .append("<label>"+message+"</label>");
             // }
 
+            let x = ''
             $(async() => {           
             var serviceURL = "http://localhost:5500/catalog";
     
@@ -137,79 +137,48 @@
                 const response =
                  await fetch(
                    serviceURL, { method: 'GET' }
+
                 );
+
           
                 const result = await response.json();
                  if (response.status === 200) {
                     // success case
                     
                     // console.log(result["catalog"])
-                    
+                    str = ""
+                          
+                            
                     for (key in result) {
                     console.log(result[key])
                     var lol = result[key]
                     for (key2 in lol){
                       console.log(key2)
                       console.log(lol[key2])
+                      
                       str += `
-                          <div class="col">
-                            <div class="card shadow-sm h-100">
+                        <div class="col">
+                          <div class="card shadow-sm h-100">
+                              <img class="card-img-top" src="${lol[key2]['image']}">
+                              <h5 class="card-title">${key2}</h5>
+                              <h6 class="card-subtitle mb-2 text-muted">${lol[key2]['price']}</h6>
 
-                              <img class="card-img-top" :src="/${lol[key2]['image']}">
-
-                              <div class="card-body">
-                                <h5 class="card-title">${key2}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">${lol[key2]['price']}</h6>
-
-                                <p class="card-text">${catalog[place]['description']}</p>
+                            <div class="card-body"> 
+                                <p class="card-text">${lol[key2]['description']}</p>
+                              
                                 <div class="d-flex justify-content-between align-items-center">
-                                  <a href="#" onclick="signup(${catalog[place]['region']})" class="btn btn-warning">Sign Up!</a>
+                                  <button onclick="signup(${this.id})" id="${key2}" class="btn btn-warning">Sign Up!</button>
                                 </div>
-                              </div>
                             </div>
                           </div>
+                        </div>
                         `
-                          // console.log(count)
-                        // if (count == catalog[place].length){
-                          document.getElementById('comehere').innerHTML = str
                     }
+
                     
+                    document.getElementById('comehere').innerHTML = str
+
                   }
-                    // var catalog = result["policies"]; 
-                    
-                    
-                    // console.log(catalog)
-                    var str = ''
-                    var count = 0
-
-                    for (const place in catalog) {
-                        console.log(catalog[place])
-                        // console.log(catalog[place]['region'])
-                    
-                        str += `
-                          <div class="col">
-                            <div class="card shadow-sm h-100">
-
-                              <img class="card-img-top" :src="/${catalog[place]['image']}">
-
-                              <div class="card-body">
-                                <h5 class="card-title">${catalog[place]['region']}</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">${catalog[place]['price']}</h6>
-
-                                <p class="card-text">${catalog[place]['description']}</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                  <a href="#" onclick="signup(${catalog[place]['region']})" class="btn btn-warning">Sign Up!</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        `
-                          // console.log(count)
-                        // if (count == catalog[place].length){
-                          // document.getElementById('comehere').innerHTML = str
-                        // }
-                      }
-                    
                   
                   }
                     //  else if (response.status == 404) {
@@ -225,39 +194,53 @@
                     // showError
                     ('There is a problem retrieving policy data, please try again later.<br />' + error);
                 } // error
+
             });
-        
+
             function signup(region) {
-              console.log(str(region))
+              
 
               //get customer ID
-              var profile = googleUser.getBasicProfile();
-              const customer_ID = profile.getId();
+              // var profile = googleUser.getBasicProfile();
+              // console.log(profile)
+              // const customer_ID = profile.getId();
 
-              console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-              let signup = JSON.stringify({
-                Username: customer_ID,
-                Region: region
+              // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+              let signupdetails = ({
+                // 'Username': customer_ID,
+                'Username': '123',
+                'Region': region
               })
-
-            }
+              strtest = String(signupdetails)
+              const dict = {strtest}
+              const json = JSON.stringify(dict)
+              console.log(signupdetails['Username'])
+              $.ajax({
+                url:'http://localhost:5500/activepolicies/'+signupdetails['Username'],
+                type:"POST",
+                contentType: "application/json",
+                data: JSON.stringify(json)
+              });
             
-
-        //     fetch('http://localhost:5500/catalog',
+            }
+          
+        //     fetch('http://localhost:5500/activepolicies/'+signupdetails['Username'],
         // {
         //     method: "POST",
         //     headers: {
-        //         "Content-type": "application/json"
+        //         "Content-type": "application/json",
         //     },
-        //     body: signup
+        //     body: signupdetails
         // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     console.log(data);
-        //     result = data.data;
-        //     console.log(result);
-        // })
-
+          
+        //   .then(data => {
+        //       console.log(data);
+        //       result = data.data;
+        //       console.log(result);
+        //   })
+        
+        
+        
 
           </script>
 
