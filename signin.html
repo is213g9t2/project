@@ -161,17 +161,19 @@
       console.log('Name: ' + profile.getName());
       console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
-
-      const customer_ID = profile.getId();
-      const fullName = profile.getName();
-      const email = profile.getEmail();
+      let customer_ID = profile.getId();
+      // console.log(typeof customer_ID)
+      let fullName = profile.getName();
+      // console.log(typeof fullName)
+      let email = profile.getEmail();
+      // console.log(typeof email)
 
       let customer = JSON.stringify({
-        Username: customer_ID,
+        CustomerID: customer_ID,
         Fullname: fullName,
         Email: email
-
       })
+      console.log(customer)
 
       fetch('http://localhost:5500/customer/'+ customer,
         {
