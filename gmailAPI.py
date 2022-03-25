@@ -44,7 +44,7 @@ def create_message(sender, to, subject, message_text):
     return base64.urlsafe_b64encode(mimeMessage.as_bytes() ).decode()
 
 
-def main():
+def main(raw_string):
     """Shows basic usage of the Gmail API.
     Lists the user's Gmail labels.
     """
@@ -79,7 +79,7 @@ def main():
         # for label in labels:
         #     print(label['name'])
 
-        raw_string = create_message("esdg9t02@gmail.com", "hengweishin@gmail.com", "testing email subject", "hello world content")
+        # raw_string = create_message("esdg9t02@gmail.com", "hengweishin@gmail.com", "testing email subject", "hello world content")
 
         # message = (service.users().messages().send(userId='me', body=message).execute())
 
