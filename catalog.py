@@ -30,13 +30,6 @@ def get_all():
     result = json.load(catalog)
 
     return result,200
-    
-    # return jsonify(
-    #     {
-    #         "code": 404,
-    #         "message": "There are no policies available."
-    #     }
-    # ), 404
 
 
 if __name__ == "__main__":

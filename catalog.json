@@ -1,57 +1,55 @@
 
 {
-"policies":[
-
+"policies":{
+    "Asia":
             {
                 "region":"Asia",
-                "price": "800",
+                "price": "$800",
                 "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "id": "001",
                 "image": "assets/regions/1.jpg"
             
             },
-        
+    "Europe":
             {
                 "region":"Europe",
-                "price": "1000",
+                "price": "$1000",
                 "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "id": "002",
                 "image": "assets/regions/2.jpg"
 
             
             },
-        
+    "North America":
             {
                 "region":"North America",
-                "price": "1000",
+                "price": "$1000",
                 "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "id": "003",
                 "image": "assets/regions/3.jpg"
 
             
             },
-
+    "South America":
             {
                 "region":"South America",
-                "price": 1000,
+                "price": "$1000",
                 "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
-                "countries": "alot",
                 "id": "004",
                 "image": "assets/regions/4.jpg"
 
             
             },
         
-
+    "Africa":
             {
-                "region":"africa",
-                "price": 1000,
+                "region":"Africa",
+                "price": "$1000",
                 "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
-                "countries": "alot",
                 "id": "005",
                 "image": "assets/regions/5.jpg"
 
             
             }
     
-]}
+}}
