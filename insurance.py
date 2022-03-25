@@ -16,7 +16,7 @@ from firebase_admin import db
 ref = db.reference("/")
 
 # New insurance record created 
-@app.route("/signup", methods=['POST'])
+@app.route("/catalog", methods=['POST'])
 def create_insurance(details):
 
     catalog = open("catalog.json")
@@ -26,14 +26,14 @@ def create_insurance(details):
     dictionary = json.loads(details)
 
     # Writes new account details to customer.json
-    def write_json(details, filename="activepolicies.json"):
-        with open (filename, "r+") as datafile:
-            data = json.load(datafile)
-            data['activepolicies']["001"] = dictionary
-            datafile.seek(0)
-            json.dump(data, datafile, indent=4)
+    # def write_json(details, filename="activepolicies.json"):
+    #     with open (filename, "r+") as datafile:
+    #         data = json.load(datafile)
+    #         data['activepolicies']["001"] = dictionary
+    #         datafile.seek(0)
+    #         json.dump(data, datafile, indent=4)
 
-    write_json(details)
+    # write_json(details)
 
     return jsonify(
         {
@@ -45,9 +45,9 @@ def create_insurance(details):
 
 
 # Reads activepolicies.json and publishes on Firebase
-with open("activepolicies.json", "r") as f:
-    file_contents = json.load(f)
-ref.set(file_contents)
+# with open("activepolicies.json", "r") as f:
+#     file_contents = json.load(f)
+# ref.update(file_contents)
 
 if __name__ == "__main__":
     app.run(port='5500',debug=True)

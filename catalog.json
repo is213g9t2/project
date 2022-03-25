@@ -1,7 +1,7 @@
 
 {
-"policies":{
-    "Asia":
+"Catalog":{
+    "Asia01":
             {
                 "region":"Asia",
                 "price": "$800",
@@ -10,7 +10,7 @@
                 "image": "assets/regions/1.jpg"
             
             },
-    "Europe":
+    "Europe01":
             {
                 "region":"Europe",
                 "price": "$1000",
@@ -20,7 +20,7 @@
 
             
             },
-    "North America":
+    "North America01":
             {
                 "region":"North America",
                 "price": "$1000",
@@ -30,7 +30,7 @@
 
             
             },
-    "South America":
+    "South America01":
             {
                 "region":"South America",
                 "price": "$1000",
@@ -41,7 +41,7 @@
             
             },
         
-    "Africa":
+    "Africa01":
             {
                 "region":"Africa",
                 "price": "$1000",

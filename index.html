@@ -110,22 +110,25 @@
 
     <div class="album py-5 bg-light" id="boing">
       <div class="container">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="comehere"></div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+          <div id="comehere"> 
+          </div>
+        </div>
       </div>
     </div>
 
           <script>
 
             // Helper function to display error message
-            function showError(message) {
-            // Hide the table and button in the event of error
-            $('#comehere').hide();
-            // $('#addBookBtn').hide();
+            // function showError(message) {
+            // // Hide the table and button in the event of error
+            // $('#comehere').hide();
+            // // $('#addBookBtn').hide();
     
-            // Display an error under the main container
-            $('#main-container')
-                .append("<label>"+message+"</label>");
-            }
+            // // Display an error under the main container
+            // $('#main-container')
+            //     .append("<label>"+message+"</label>");
+            // }
 
             $(async() => {           
             var serviceURL = "http://localhost:5500/catalog";
@@ -139,10 +142,43 @@
                 const result = await response.json();
                  if (response.status === 200) {
                     // success case
-                    var catalog = result["policies"]; 
+                    
+                    // console.log(result["catalog"])
+                    
+                    for (key in result) {
+                    console.log(result[key])
+                    var lol = result[key]
+                    for (key2 in lol){
+                      console.log(key2)
+                      console.log(lol[key2])
+                      str += `
+                          <div class="col">
+                            <div class="card shadow-sm h-100">
+
+                              <img class="card-img-top" :src="/${lol[key2]['image']}">
+
+                              <div class="card-body">
+                                <h5 class="card-title">${key2}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">${lol[key2]['price']}</h6>
+
+                                <p class="card-text">${catalog[place]['description']}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                  <a href="#" onclick="signup(${catalog[place]['region']})" class="btn btn-warning">Sign Up!</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        `
+                          // console.log(count)
+                        // if (count == catalog[place].length){
+                          document.getElementById('comehere').innerHTML = str
+                    }
+                    
+                  }
+                    // var catalog = result["policies"]; 
                     
                     
-                    console.log(catalog)
+                    // console.log(catalog)
                     var str = ''
                     var count = 0
 
@@ -170,23 +206,23 @@
                         `
                           // console.log(count)
                         // if (count == catalog[place].length){
-                          document.getElementById('comehere').innerHTML = str
+                          // document.getElementById('comehere').innerHTML = str
                         // }
                       }
                     
                   
                   }
-                     else if (response.status == 404) {
-                        // No policies available
-                        showError(result.message);
-                    } else {
-                        // unexpected outcome, throw the error
-                        throw response.status;
-                    }
+                    //  else if (response.status == 404) {
+                    //     // No policies available
+                    //     showError(result.message);
+                    // } else {
+                    //     // unexpected outcome, throw the error
+                    //     throw response.status;
+                    // }
                 } catch (error) {
                     // Errors when calling the service; such as network error, 
                     // service offline, etc
-                    showError
+                    // showError
                     ('There is a problem retrieving policy data, please try again later.<br />' + error);
                 } // error
             });
@@ -207,20 +243,20 @@
             }
             
 
-            fetch('http://localhost:5500/signup',
-        {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json"
-            },
-            body: signup
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            result = data.data;
-            console.log(result);
-        })
+        //     fetch('http://localhost:5500/catalog',
+        // {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-type": "application/json"
+        //     },
+        //     body: signup
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     console.log(data);
+        //     result = data.data;
+        //     console.log(result);
+        // })
 
 
           </script>

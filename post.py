@@ -12,7 +12,7 @@ ref = db.reference("/")
 import json
 with open("customer.json", "r") as f:
 	file_contents = json.load(f)
-ref.set(file_contents)
+ref.update(file_contents)
 
 
 # increment_customer = "customer_test"
@@ -80,42 +80,6 @@ hopper2_ref.update({
         'PlanDesc': 'PlanDesc ',
         'Country': 'Country',
         'Price' : 'Price'
-})
-
-
-
-
-increment_signUp = "signUp_test"
-
-signUp_ref = ref.child('signUp')
-signUp_ref.set({
-    
-    increment_signUp: {
-        'TransactionID': 'TransactionID',
-        'CustomerID': 'CustomerID',
-        'EmailAddress': 'EmailAddress',
-        'PolicyID' : 'PolicyID',
-        'PurchaseDate': 'PurchaseDate',
-        'PaymentDate': 'PaymentDate',
-        'Price': 'Price',
-        'PaymentStatus' : 'PaymentStatus',
-        'VerificationStatus' : 'VerificationStatus'
-
-    }
-})
-
-
-hopper3_ref = signUp_ref.child('signUp2')
-hopper3_ref.update({
-        'TransactionID': 'TransactionID',
-        'CustomerID': 'CustomerID',
-        'EmailAddress': 'EmailAddress',
-        'PolicyID' : 'PolicyID',
-        'PurchaseDate': 'PurchaseDate',
-        'PaymentDate': 'PaymentDate',
-        'Price': 'Price',
-        'PaymentStatus' : 'PaymentStatus',
-        'VerificationStatus' : 'VerificationStatus'
 })
 
 
