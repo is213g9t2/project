@@ -1,44 +1,24 @@
 {
     "customer": {
         "213": {
-            "Dob": "17-03-2003",
-            "EmailAddress": "appletan@gmal.com",
-            "Gender": "Female",
-            "MedicalConditions": [
-                "NIL"
-            ],
-            "MobileNumber": "91234567",
-            "Name": "Apple",
-            "Password": "iLoveApples",
-            "UploadDocument": ""
+            "FullName": "Apple",
+            "Email": "appletan@gmal.com",
+            "ActivePolicies": []
         },
         "312": {
-            "Dob": "10-10-1981",
-            "EmailAddress": "brettlim@gmail.com",
-            "Gender": "Male",
-            "MedicalConditions": [
-                "NIL"
-            ],
-            "MobileNumber": "89996777",
-            "Name": "Brett",
-            "Password": "brettlovescoding",
-            "UploadDocument": ""
+            "FullName": "Brett",
+            "Email": "brettlim@gmail.com",
+            "ActivePolicies": []
         },
         "123": {
-            "Dob": "09-12-2001",
-            "EmailAddress": "rachelgan@gmal.com",
-            "Gender": "Female",
-            "MedicalConditions": [
-                "NIL"
-            ],
-            "MobileNumber": "92039102",
-            "Name": "Rachel",
-            "Password": "rachelgan",
-            "UploadDocument": ""
+            "Email": "rachelgan@gmal.com",
+            "FullName": "Rachel",
+            "ActivePolicies": []
         },
-        "1000": {
-            "Username": "john.lee",
-            "Password": "password"
+        "113538498334279602821": {
+            "FullName": "ESDG9 Group2",
+            "Email": "esdg9t02@gmail.com",
+            "ActivePolicies": []
         }
     }
 }

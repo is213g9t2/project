@@ -1,7 +1,7 @@
 <html lang="en">
 
 <head>
-    <title>Customer Sign Up</title></head>
+    <title>Customer Login</title></head>
     <!-- Vue 3 -->
     <!-- <script src='https://cdn.jsdelivr.net/npm/vue@3.0.2/dist/vue.global.js'></script> -->
     <!--jQuery CDN-->
@@ -9,35 +9,35 @@
 <body>
 
 
-<P>Post some values to a json file</P>
+<P>Get Account Details from JSON file</P>
 
 
     <label for="username">Username:</label> <input type="text" id="username" name="username" v-model="username">
     <label for="password">Password:</label><input type="text" id="password" name="password" v-model="password">
-    <button type="submit" onclick="signup()">Sign Up</button>
+    <button type="submit" onclick="login()">Login</button>
+
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script>
 
-function signup(){
+function login(){
     const username = document.getElementById("username").value;
     console.log(username)
     const password = document.getElementById("password").value;
     console.log(password)
 
-    let c = JSON.stringify( {
+    let customer = JSON.stringify({
         Username: username,
         Password: password
     })
-    console.log(c)
 
-    fetch('http://localhost:5500/customer/'+ c,
+    fetch('http://localhost:5500/customer/'+ customer,
         {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
             },
-            body: c
+            body: customer
         })
         .then(response => response.json())
         .then(data => {
