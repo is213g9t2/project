@@ -20,6 +20,11 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+  <!-- GOOGLE SIGN IN -->
+  <meta name="google-signin-client_id" content="212495606374-bd7o14od4050kbold0usvmdt4r9fcibt.apps.googleusercontent.com">
+  
+
+
   <style>
     .bd-placeholder-img {
       font-size: 1.125rem;
@@ -48,6 +53,30 @@
 
 </head>
 
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAR_-kFMeF3Uc_zzvBaJDGj35PjO8fYezQ",
+    authDomain: "esdg9t02-insurance.firebaseapp.com",
+    databaseURL: "https://esdg9t02-insurance-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "esdg9t02-insurance",
+    storageBucket: "esdg9t02-insurance.appspot.com",
+    messagingSenderId: "212495606374",
+    appId: "1:212495606374:web:45dc9e3e99da4b815003a7"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  import { GoogleAuthProvider } from "firebase/auth";
+
+  const provider = new GoogleAuthProvider();
+</script>
 
 <body>
 
@@ -167,7 +196,7 @@
                                 <p class="card-text">${lol[key2]['description']}</p>
                               
                                 <div class="d-flex justify-content-between align-items-center">
-                                  <button onclick="signup(${this.id})" id="${key2}" class="btn btn-warning">Sign Up!</button>
+                                  <button onclick="signup('${key2}')" id="${key2}" class="btn btn-warning">Sign Up!</button>
                                 </div>
                             </div>
                           </div>
@@ -204,19 +233,21 @@
               // var profile = googleUser.getBasicProfile();
               // console.log(profile)
               // const customer_ID = profile.getId();
+              // console.log(customer_ID)
 
               // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+              console.log(region)
               let signupdetails = ({
                 // 'Username': customer_ID,
                 'Username': '123',
-                'Region': region
+                'Region': String(region)
               })
               strtest = String(signupdetails)
               const dict = {strtest}
               const json = JSON.stringify(dict)
-              console.log(signupdetails['Username'])
+              console.log(signupdetails)
               $.ajax({
-                url:'http://localhost:5500/activepolicies/'+signupdetails['Username'],
+                url:'http://localhost:5500/activepolicies/'+ signupdetails,
                 type:"POST",
                 contentType: "application/json",
                 data: JSON.stringify(json)
