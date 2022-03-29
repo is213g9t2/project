@@ -1,4 +1,6 @@
+from email import message
 import os, sys
+from re import X
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -16,7 +18,6 @@ app = Flask(__name__)
 CORS(app)
 
 
-from cgi import print_directory
 import firebase_admin
 
 cred_obj = firebase_admin.credentials.Certificate('esdg9t02-insurance-firebase-adminsdk-umgr1-f4dd6e06a6.json')
@@ -26,24 +27,9 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 
 from firebase_admin import db
 
-# customerID to be gotten from payment complex microservice
-ref = db.reference("/customer/customerID")
-data = ref.get()
-
-
-policy = data["Policies"]
-for g, x in policy.items():
-    print(x)
-    if x["paymentStatus"] == "Outstanding":
-        print(x["amount"])
-        unpaid = x["amount"]
-    
-
 @app.route("/activePolicies")
-def get_all():
-    if unpaid:
-        message = "U BAD, NO GOOD"
-        code = 404
+def get_all(rabbit):
+    code = 404
 
     if code not in range(200, 300):
 
@@ -54,7 +40,7 @@ def get_all():
         print('\n\n-----Publishing the (order error) message with routing_key=#.policies-----')
 
         # invoke_http(error_URL, method="POST", json=order_result)
-        amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="#.policies", 
+        amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="#.reminder", 
             body=message, properties=pika.BasicProperties(delivery_mode = 2)) 
         # make message persistent within the matching queues until it is received by some receiver 
         # (the matching queues have to exist and be durable and bound to the exchange)
@@ -68,18 +54,88 @@ def get_all():
             {
                 "code": code,
                 "data": {
-                    "unpaid": unpaid
+                    "unpaid": rabbit
                 },
                 "message": message
             })
 
     return
-    
+
+# customerID to be gotten from payment complex microservice
+ref = db.reference("/customer/customerID")
+
+ref = db.reference("/")
+data = ref.get()
+# policyID: CustID+CatalogID+PurchaseDate
+
+# get current data
+import datetime
+x = datetime.datetime.now().date()
+x = x.strftime("%m-%d-%Y")
+# print(x)
+# print(type(x))
+catalogID = "Africa01"
+customerID = "123"
+policyID = customerID + catalogID + x
+# print(policyID)
+
+price = "100.00"
+
+policy_ref = ref.child('Policy')
+hopper2_ref = policy_ref.child(policyID)
+hopper2_ref.update({
+        'CatalogID': catalogID,
+        'CustID': customerID,
+        'PurchaseDate': x,
+        'PaymentDate' : '',
+        'PaymentStatus': 'Outstanding',
+        'Price': price
+        
+})
+
+
+ref = db.reference("/customer/" + customerID)
+data = ref.get()
+# print(data)
+length = len(data)
+
+if length == 2:
+    ref = db.reference("/")
+    data = ref.get()
+    customer_ref = ref.child('customer')
+    hopper_ref = customer_ref.child(customerID + '/ActivePolicies')
+    hopper_ref.update({
+            "0": policyID
+    })  
+
+else:
+
+    ref = db.reference("/Policy/" + policyID)
+    data = ref.get()
+    policyData = data["PaymentStatus"]
+    if policyData == "Outstanding":
+        # redirect to payment (nikki) page
+        print("lol")
+        rabbit = policyID + "for customer" + customerID + "Outstanding"
+        # get_all(rabbit)
+    else:
+        ref = db.reference("/customer/" + customerID)
+        data = ref.get()
+        activePolicies = data["ActivePolicies"]
+        length = len(activePolicies)
+        ref = db.reference("/")
+        data = ref.get()
+        customer_ref = ref.child('customer')
+        hopper_ref = customer_ref.child(customerID + '/ActivePolicies')
+        hopper_ref.update({
+                length: policyID
+        })
 
 
 if __name__ == '__main__':
     print("This is flask for " + os.path.basename(__file__) + ": manage orders ...")
     app.run(host='0.0.0.0', port=5001, debug=True)
+
 
 
 
