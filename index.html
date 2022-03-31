@@ -47,6 +47,20 @@
       height: 15vw;
       object-fit: cover;
     }
+
+    /* STYLING FOR POP UP FORM */
+    .form_class {
+    width: 500px;
+    padding: 40px;
+    border-radius: 8px;
+    background-color: white;
+    font-family: 'system-ui';
+    box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+  }
+  .form_div {
+    text-transform: uppercase;
+  }
+
   </style>
 
   <!-- VUE CDN -->
@@ -179,26 +193,29 @@
                     // console.log(result["catalog"])
                     str = ""
                           
-                            
-                    for (key in result) {
-                    console.log(result[key])
-                    var lol = result[key]
-                    for (key2 in lol){
-                      console.log(key2)
-                      console.log(lol[key2])
+            
+                    for (country in result) {
+                      // lists all countries and their details
+                      console.log(result[country])
+                    var countries = result[country]
+                    for (each_country in countries){
+                      // print country
+                      console.log(each_country)
+                      //print country's details
+                      console.log(countries[each_country])
                       
                       str += `
                         <div class="col">
                           <div class="card shadow-sm h-100">
-                              <img class="card-img-top" src="${lol[key2]['image']}">
-                              <h5 class="card-title">${key2}</h5>
-                              <h6 class="card-subtitle mb-2 text-muted">${lol[key2]['price']}</h6>
+                              <img class="card-img-top" src="${countries[each_country]['image']}">
+                              <h5 class="card-title">${each_country}</h5>
+                              <h6 class="card-subtitle mb-2 text-muted">${countries[each_country]['price']}</h6>
 
                             <div class="card-body"> 
-                                <p class="card-text">${lol[key2]['description']}</p>
+                                <p class="card-text">${countries[each_country]['description']}</p>
                               
                                 <div class="d-flex justify-content-between align-items-center">
-                                  <button onclick="signup('${key2}')" id="${key2}" class="btn btn-warning">Sign Up!</button>
+                                  <button onclick="signup('${each_country}')" id="${each_country}" class="btn btn-warning">Sign Up!</button>
                                 </div>
                             </div>
                           </div>
@@ -229,7 +246,6 @@
             });
 
             function signup(region) {
-              
 
               //get customer ID
               // var profile = googleUser.getBasicProfile();
