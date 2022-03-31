@@ -161,6 +161,8 @@
       console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
       let customer_ID = profile.getId();
+      // passes customerid to index.html
+      localStorage.setItem("customerid", customer_ID)
       // console.log(typeof customer_ID)
       let fullName = profile.getName();
       // console.log(typeof fullName)
