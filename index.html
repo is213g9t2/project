@@ -49,17 +49,52 @@
     }
 
     /* STYLING FOR POP UP FORM */
-    .form_class {
-    width: 500px;
-    padding: 40px;
-    border-radius: 8px;
-    background-color: white;
-    font-family: 'system-ui';
-    box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
-  }
-  .form_div {
-    text-transform: uppercase;
-  }
+
+    .form-popup {
+      display: none;
+      
+    }
+    .form-container {
+      width: 500px;
+      padding: 40px;
+      border-radius: 8px;
+      background-color: white;
+      font-family: 'system-ui';
+      box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
+
+    }
+    
+    .form_div {
+      text-transform: uppercase;
+    }
+    .field_class {
+      width: 100%;
+      border-radius: 6px;
+      border-style: solid;
+      border-width: 1px;
+      padding: 5px 0px;
+      text-indent: 6px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-family: 'system-ui';
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+    }
+
+    .btn {
+        border-style: none;
+        border-radius: 5px;
+        background-color: #FFE6D4;
+        padding: 8px 20px;
+        font-family: 'system-ui';
+        text-transform: uppercase;
+        letter-spacing: .8px;
+        display: block;
+        margin: auto;
+        margin-top: 10px;
+        box-shadow: 2px 2px 5px rgb(0,0,0,0.2);
+        cursor: pointer;
+    }
 
   </style>
 
@@ -221,6 +256,31 @@
                           </div>
                         </div>
                         `
+                        // Pop up form !!!CODE NOT WORKING NOWWW!!
+                        `<div class="form-popup" id="myForm">
+                            <form action="" class="form-container">
+                              <h1>You are purchasing insurance for ${each_country} </h1>
+                              
+                              <div class="form_div">
+                                <label for="specific_country">Country of travel</label>
+                                <input type="text" class="field_class" placeholder="Enter specific country of travel" name="specific_country" id="specific_country"required>
+                              </div>
+
+
+                              <label for="start">Start date:</label>
+                              <input type="date" id="startTrip" name="trip-start"
+                                    value="2022-04-05"
+                                    min="2022-04-05" max="2023-04-05" required>
+
+                              <label for="end">End date:</label>
+                              <input type="date" id="endTrip" name="trip-end"
+                                    value="2022-04-05"
+                                    min="2022-04-05" max="2023-04-05" required>
+
+                              <button type="submit" class="btn">Confirm</button>
+                              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                            </form>
+                          </div>`
                     }
 
                     
@@ -247,6 +307,10 @@
 
             function signup(region) {
 
+              // OPEN SIGNUP POP UP FORM
+              document.getElementById("myForm").style.display = "block";
+      
+
               //get customer ID
               // var profile = googleUser.getBasicProfile();
               // console.log(profile)
@@ -258,7 +322,10 @@
               let signupdetails = ({
                 // gets customerid from signin.html
                 'Username': localStorage.getItem('customerid'),
-                'Region': String(region)
+                'Region': String(region),
+                'Specific Country': document.getElementById('specific_country'),
+                'Start Date': document.getElementById('startTrip'),
+                'End Date': document.getElementById('endTrip')
               })
               strtest = String(signupdetails)
               const dict = {strtest}
@@ -272,6 +339,10 @@
               });
             
             }
+
+            function closeForm() {
+              document.getElementById("myForm").style.display = "none";
+            }           
           
         //     fetch('http://localhost:5500/activepolicies/'+signupdetails['Username'],
         // {
