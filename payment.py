@@ -52,6 +52,7 @@ for (i,m) in custdata.items():
                     amt = m["Price"]
                     outstandingpolicy = k
 print(outstandingpolicy)
+print(amt)
 
 policy1 = policydata
                                                                                                         
@@ -158,16 +159,14 @@ dict1 = {}
 @app.route('/getAmount')
 def getAmt():
     amt = 0
-    getPoliciesLate = db.reference("/Policy")
-    policy1data = getPoliciesLate.get()
     for (i,m) in custdata.items():
         for (e,j) in data.items():
                 for k in j:
                     if i == k:
                         dict1[i] = m
-                        for (x,y) in policy1data.items():
-                            if y['PaymentStatus'] == "Outstanding":
-                                amt = y["Price"]
+                        print(dict1)
+                        if m['PaymentStatus'] == "Outstanding":
+                            amt = m["Price"]
     print(dict1)
     return jsonify(
             {
