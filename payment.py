@@ -4,7 +4,6 @@ import json
 import amqp_setup
 import pika
 from invokes import invoke_http
-from activePolicies import disable
 # from sms import sms
 import firebase_admin
 import os
@@ -38,8 +37,8 @@ policydata = getPolicies.get()
 
 amt = 0
 outstandingpolicy = ''
-custID = ''
-getCustomerRef = db.reference("/customer/"+custID)
+custID = '113538498334279602821'
+getCustomerRef = db.reference("/customer/113538498334279602821")
 data = getCustomerRef.get()
 
 getCustPolicies = db.reference("/Policy/")
@@ -55,7 +54,7 @@ for (i,m) in custdata.items():
 print(outstandingpolicy)
 print(amt)
 policy1 = policydata
-                                                                                                        
+                                                                              
 # amt = 0
 # outstandingpolicy = ''
 # for (x,y) in policy1.items():
@@ -88,15 +87,7 @@ policy1 = policydata
 #                 "data": policy1data
 #             }       
 #     )
-tryy = ''
-custURL = "http://localhost:5001/disable/<string:custID>"
-def cust(custId):
-    cust_res = invoke_http(custURL, json=custId)
-    tryy = disable(custId)
-    return tryy
-print(tryy)
-
-
+    
 dict = {}
 @app.route('/display')
 def display():
