@@ -9,7 +9,7 @@
   <meta name="generator" content="Hugo 0.88.1">
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-  <title>Album example · Bootstrap v5.1</title>
+  <title>SafeTravel - Browse Policies</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
 
@@ -140,8 +140,8 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">My Policies</a></li>
+          <li><a href="index.html" class="nav-link px-2 text-white">Home</a></li>
+          <li><a href="payment.html" class="nav-link px-2 text-secondary">My Policies</a></li>
 
         </ul>
 
@@ -243,10 +243,12 @@
                         <div class="col">
                           <div class="card shadow-sm h-100">
                               <img class="card-img-top" src="${countries[each_country]['image']}">
+
+                              <div class="card-body"> 
                               <h5 class="card-title">${each_country}</h5>
                               <h6 class="card-subtitle mb-2 text-muted">${countries[each_country]['price']}</h6>
 
-                            <div class="card-body"> 
+                            
                                 <p class="card-text">${countries[each_country]['description']}</p>
                               
                                 <div class="d-flex justify-content-between align-items-center">
@@ -256,6 +258,8 @@
                           </div>
                         </div>
                         `
+                        + 
+                        
                         // Pop up form !!!CODE NOT WORKING NOWWW!!
                         `<div class="form-popup" id="myForm">
                             <form action="" class="form-container">
