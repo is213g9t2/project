@@ -118,29 +118,22 @@ def get_details(s):
     import datetime
     x = datetime.datetime.now().date()
     x = x.strftime("%m-%d-%Y")
-    # print(x)
-    # print(type(x))
     
     catalogID = signupdetails[1]
-    # print(catalogID)
 
     customerID = signupdetails[0]
     cust(customerID)
-    # print(customerID)
     
     startDate = signupdetails[3]
 
     ref = db.reference("/Catalog/" + catalogID)
     data = ref.get()
     price = data["price"][1:]
-    # print(price)
 
     policyID = customerID + catalogID + startDate
-    print(policyID)
 
     ref = db.reference("/customer/" + customerID)
     data = ref.get()
-    # print(data)
     length = len(data)
 
     if length == 2:
@@ -176,22 +169,11 @@ def get_details(s):
             ref = db.reference("/Policy/" + ch)
             data = ref.get()
             policyData = data["PaymentStatus"]
-            if ch["PaymentStatus"] == "Outstanding":
-                unpaid = ch 
-        print(unpaid)
-        
-        ref = db.reference("/Policy/" + unpaid)
-        data = ref.get()
-        policyData = data["PaymentStatus"]
-        print(policyData)
-
-
-        if policyData == "Outstanding":
-            # print(policyData)
-            # redirect to payment (nikki) page
-            # print("Outstanding NO GOOOOOOOOOOO")
-            rabbit = unpaid
-            get_all(unpaid)
+            if policyData == "Outstanding":
+                unpaid = ch
+                rabbit = unpaid
+                get_all(unpaid)
+                break
 
         else:
             ref = db.reference("/customer/" + customerID)
