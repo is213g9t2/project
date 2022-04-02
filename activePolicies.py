@@ -28,7 +28,7 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 from firebase_admin import db
 
 @app.route("/activePolicies/<string:signupdetails>", methods=['POST'])
-@app.route("/activePolicies")
+# @app.route("/activePolicies")
 
 def get_all(rabbit):
     code = 404
