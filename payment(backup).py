@@ -29,84 +29,47 @@ ref = db.reference("/")
 customer_ref = ref.child('customer')
 policy_ref = ref.child('Policy')
 
+getCustomerRef = db.reference("/customer/customerID")
+data = getCustomerRef.get()
 
 getPolicies = db.reference("/Policy")
 policydata = getPolicies.get()
-# print(policydata)
-
-
-amt = 0
-outstandingpolicy = ''
-custID = '113538498334279602821'
-getCustomerRef = db.reference("/customer/113538498334279602821")
-data = getCustomerRef.get()
-getCustPolicies = db.reference("/Policy/")
-custdata = getCustPolicies.get()
-for (i,m) in custdata.items():
-    for (e,j) in data.items():
-        for k in j:
-            if i == k:
-                if m['PaymentStatus'] == "Outstanding":
-                    amt = m["Price"]
-                    outstandingpolicy = k
-print(outstandingpolicy)
-
 
 
 # policy = policydata["123Africa0103-31-2022"]
 policy1 = policydata
+
+
                                                                                                         
-# amt = 0
-# outstandingpolicy = ''
-# for (x,y) in policy1.items():
-#     if y['PaymentStatus'] == "Outstanding":
-#         amt = y["Price"]
-#         outstandingpolicy = x
-# print(amt)
-# print(outstandingpolicy)
-# print(policy1[outstandingpolicy])
+amt = 0
+outstandingpolicy = ''
+for (x,y) in policy1.items():
+    print(x,y)
+    if y['PaymentStatus'] == "Outstanding":
+        amt = y["Price"]
+        outstandingpolicy = x
+print(amt)
+print(outstandingpolicy)
+print(policy1[outstandingpolicy])
     # if policy["PaymentStatus"] == "Outstanding":
     #     amt = policy["Price"]
 
     # elif policy["PaymentStatus"] == "Paid":
     #     amt = policy["OutstandingAmt"]
     # print(amt)
-
-# @app.route('/display')
-# def display():
-#     getPoliciesLate = db.reference("/Policy")
-#     policy1data = getPoliciesLate.get()
-#     for (i,m) in custdata.items():
-#         for (e,j) in data.items():
-#             for k in j:
-#                 if i == k:
-#                     print(k)
     
-#     return  jsonify(
-#             {
-#                 "code": 200,
-#                 "data": policy1data
-#             }       
-#     )
-    
-dict = {}
 @app.route('/display')
 def display():
     getPoliciesLate = db.reference("/Policy")
     policy1data = getPoliciesLate.get()
-    for (i,m) in custdata.items():
-        for (e,j) in data.items():
-            for k in j:
-                if i == k:
-                    dict[i] = m
-    print(dict)
     
     return  jsonify(
             {
                 "code": 200,
-                "data": dict
+                "data": policy1data
             }       
     )
+
 
 @app.route("/getpayment/<string:amt>", methods=['POST'])
 def payment(amt):
@@ -134,46 +97,26 @@ def payment(amt):
 # make_payment()
 
 
-# @app.route('/getAmount')
-# def getAmt():
-#     getPoliciesLate = db.reference("/Policy")
-#     policy1data = getPoliciesLate.get()
-#     amt = 0
-#     for (x,y) in policy1data.items():
-#         print(x,y)
-#         if y['PaymentStatus'] == "Outstanding":
-#             amt = y["Price"]
-#     return jsonify(
-#             {
-#                 "code": 200,
-#                 "data": {
-#                     "Amt":amt,
-#                     "details":policy1,
-#                     "policykey":outstandingpolicy
-#                 }
-#             }
-#         )
-        
 @app.route('/getAmount')
 def getAmt():
     getPoliciesLate = db.reference("/Policy")
     policy1data = getPoliciesLate.get()
-    for (i,m) in custdata.items():
-        for (e,j) in data.items():
-            for k in j:
-                if i == k:
-                    print(m)
+    amt = 0
+    for (x,y) in policy1data.items():
+        print(x,y)
+        if y['PaymentStatus'] == "Outstanding":
+            amt = y["Price"]
     return jsonify(
             {
                 "code": 200,
                 "data": {
                     "Amt":amt,
-                    "data":dict,
+                    "details":policy1,
                     "policykey":outstandingpolicy
                 }
             }
         )
-
+        
 # @app.route('/getDetails')
 # def getDetails():
 #     return  jsonify(
