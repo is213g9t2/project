@@ -14,6 +14,8 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 from firebase_admin import db
 
 ref = db.reference("/")
+data = ref.get()
+print(data)
 
 # New insurance record created 
 @app.route("/catalog", methods=['GET'])

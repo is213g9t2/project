@@ -27,7 +27,9 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 
 from firebase_admin import db
 
+@app.route("/activePolicies/<string:signupdetails>", methods=['POST'])
 @app.route("/activePolicies")
+
 def get_all(rabbit):
     code = 404
 
@@ -37,10 +39,10 @@ def get_all(rabbit):
         # routing key to be determined
 
         #print('\n\n-----Invoking error microservice as order fails-----')
-        print('\n\n-----Publishing the (order error) message with routing_key=#.policies-----')
+        print('\n\n-----Publishing the (order error) message with routing_key=#.outstanding-----')
 
         # invoke_http(error_URL, method="POST", json=order_result)
-        amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="#.reminder", 
+        amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="#.outstanding", 
             body=message, properties=pika.BasicProperties(delivery_mode = 2)) 
         # make message persistent within the matching queues until it is received by some receiver 
         # (the matching queues have to exist and be durable and bound to the exchange)
@@ -81,19 +83,6 @@ policyID = customerID + catalogID + x
 
 price = "100.00"
 
-policy_ref = ref.child('Policy')
-hopper2_ref = policy_ref.child(policyID)
-hopper2_ref.update({
-        'CatalogID': catalogID,
-        'CustID': customerID,
-        'PurchaseDate': x,
-        'PaymentDate' : '',
-        'PaymentStatus': 'Outstanding',
-        'Price': price
-        
-})
-
-
 ref = db.reference("/customer/" + customerID)
 data = ref.get()
 # print(data)
@@ -106,18 +95,41 @@ if length == 2:
     hopper_ref = customer_ref.child(customerID + '/ActivePolicies')
     hopper_ref.update({
             "0": policyID
-    })  
+    })
+
+    policy_ref = ref.child('Policy')
+    hopper2_ref = policy_ref.child(policyID)
+    hopper2_ref.update({
+            'CatalogID': catalogID,
+            'CustID': customerID,
+            'PurchaseDate': x,
+            'PaymentDate' : '-',
+            'PaymentStatus': 'Outstanding',
+            'Price': price,
+            "OutstandingAmt": price,
+            "Status":"Pending"
+    })
 
 else:
 
-    ref = db.reference("/Policy/" + policyID)
+    ref = db.reference("/customer/" + customerID + "/ActivePolicies")
+    data = ref.get()
+    print(data)
+    for ch in data:
+        last_policy = ch
+    print(last_policy)
+    
+    ref = db.reference("/Policy/" + last_policy)
     data = ref.get()
     policyData = data["PaymentStatus"]
+    print(policyData)
     if policyData == "Outstanding":
+        # print(policyData)
         # redirect to payment (nikki) page
-        print("lol")
-        rabbit = policyID + "for customer" + customerID + "Outstanding"
-        # get_all(rabbit)
+        # print("Outstanding NO GOOOOOOOOOOO")
+        rabbit = last_policy + "for customer" + customerID + "Outstanding"
+        get_all(rabbit)
+
     else:
         ref = db.reference("/customer/" + customerID)
         data = ref.get()
@@ -131,11 +143,24 @@ else:
                 length: policyID
         })
 
+        policy_ref = ref.child('Policy')
+        hopper2_ref = policy_ref.child(policyID)
+        hopper2_ref.update({
+                'CatalogID': catalogID,
+                'CustID': customerID,
+                'PurchaseDate': x,
+                'PaymentDate' : '-',
+                'PaymentStatus': 'Outstanding',
+                'Price': price,
+                "OutstandingAmt": price,
+                "Status":"Pending"
+                
+        })
+
 
 if __name__ == '__main__':
     print("This is flask for " + os.path.basename(__file__) + ": manage orders ...")
     app.run(host='0.0.0.0', port=5001, debug=True)
-
 
 
 

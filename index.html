@@ -261,30 +261,30 @@
                         + 
                         
                         // Pop up form !!!CODE NOT WORKING NOWWW!!
-                        `<div class="form-popup" id="myForm">
-                            <form action="" class="form-container">
-                              <h1>You are purchasing insurance for ${each_country} </h1>
+                        // `<div class="form-popup" id="myForm">
+                        //     <form action="" class="form-container">
+                        //       <h1>You are purchasing insurance for ${each_country} </h1>
                               
-                              <div class="form_div">
-                                <label for="specific_country">Country of travel</label>
-                                <input type="text" class="field_class" placeholder="Enter specific country of travel" name="specific_country" id="specific_country"required>
-                              </div>
+                        //       <div class="form_div">
+                        //         <label for="specific_country">Country of travel</label>
+                        //         <input type="text" class="field_class" placeholder="Enter specific country of travel" name="specific_country" id="specific_country"required>
+                        //       </div>
 
 
-                              <label for="start">Start date:</label>
-                              <input type="date" id="startTrip" name="trip-start"
-                                    value="2022-04-05"
-                                    min="2022-04-05" max="2023-04-05" required>
+                        //       <label for="start">Start date:</label>
+                        //       <input type="date" id="startTrip" name="trip-start"
+                        //             value="2022-04-05"
+                        //             min="2022-04-05" max="2023-04-05" required>
 
-                              <label for="end">End date:</label>
-                              <input type="date" id="endTrip" name="trip-end"
-                                    value="2022-04-05"
-                                    min="2022-04-05" max="2023-04-05" required>
+                        //       <label for="end">End date:</label>
+                        //       <input type="date" id="endTrip" name="trip-end"
+                        //             value="2022-04-05"
+                        //             min="2022-04-05" max="2023-04-05" required>
 
-                              <button type="submit" class="btn">Confirm</button>
-                              <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-                            </form>
-                          </div>`
+                        //       <button type="submit" class="btn">Confirm</button>
+                        //       <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                        //     </form>
+                        //   </div>`
                     }
 
                     
@@ -336,7 +336,7 @@
               const json = JSON.stringify(dict)
               console.log(signupdetails)
               $.ajax({
-                url:'http://localhost:5500/activepolicies/'+ signupdetails,
+                url:'http://localhost:5500/activePolicies/'+ signupdetails,
                 type:"POST",
                 contentType: "application/json",
                 data: JSON.stringify(json)
