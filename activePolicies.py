@@ -158,6 +158,7 @@ def get_details(signupdetails):
                     "Status":"Pending"
                     
             })  
+    return signupdetails
 
 
 if __name__ == '__main__':
