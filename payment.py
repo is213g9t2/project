@@ -40,8 +40,10 @@ outstandingpolicy = ''
 custID = '113538498334279602821'
 getCustomerRef = db.reference("/customer/113538498334279602821")
 data = getCustomerRef.get()
+
 getCustPolicies = db.reference("/Policy/")
 custdata = getCustPolicies.get()
+
 for (i,m) in custdata.items():
     for (e,j) in data.items():
         for k in j:
@@ -51,9 +53,6 @@ for (i,m) in custdata.items():
                     outstandingpolicy = k
 print(outstandingpolicy)
 
-
-
-# policy = policydata["123Africa0103-31-2022"]
 policy1 = policydata
                                                                                                         
 # amt = 0
@@ -92,15 +91,16 @@ policy1 = policydata
 dict = {}
 @app.route('/display')
 def display():
-    getPoliciesLate = db.reference("/Policy")
-    policy1data = getPoliciesLate.get()
-    for (i,m) in custdata.items():
-        for (e,j) in data.items():
+    getCustomerRef = db.reference("/customer/113538498334279602821")
+    data1 = getCustomerRef.get()
+
+    getCustPolicies = db.reference("/Policy/")
+    custdata1 = getCustPolicies.get()
+    for (i,m) in custdata1.items():
+        for (e,j) in data1.items():
             for k in j:
                 if i == k:
                     dict[i] = m
-    print(dict)
-    
     return  jsonify(
             {
                 "code": 200,
@@ -133,7 +133,6 @@ def payment(amt):
 
 # make_payment()
 
-
 # @app.route('/getAmount')
 # def getAmt():
 #     getPoliciesLate = db.reference("/Policy")
@@ -153,22 +152,29 @@ def payment(amt):
 #                 }
 #             }
 #         )
-        
+
+
+dict1 = {}
 @app.route('/getAmount')
 def getAmt():
+    amt = 0
     getPoliciesLate = db.reference("/Policy")
     policy1data = getPoliciesLate.get()
     for (i,m) in custdata.items():
         for (e,j) in data.items():
-            for k in j:
-                if i == k:
-                    print(m)
+                for k in j:
+                    if i == k:
+                        dict1[i] = m
+                        for (x,y) in policy1data.items():
+                            if y['PaymentStatus'] == "Outstanding":
+                                amt = y["Price"]
+    print(dict1)
     return jsonify(
             {
                 "code": 200,
                 "data": {
                     "Amt":amt,
-                    "data":dict,
+                    "data":dict1,
                     "policykey":outstandingpolicy
                 }
             }
