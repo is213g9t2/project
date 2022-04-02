@@ -33,7 +33,7 @@ def make_payment():
     # with open ("test.json") as json_file:
     #     data = json.load(json_file)
     #     print(data)
-
+   
         try:
             order = json_data
             print(order)
@@ -44,7 +44,7 @@ def make_payment():
             print('\n------------------------')
             print('\nresult: ', r)
             return jsonify(json_data)
-
+            
         except Exception as e:
             # Unexpected error in code
             exc_type, exc_obj, exc_tb = sys.exc_info()
