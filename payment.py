@@ -4,6 +4,7 @@ import json
 import amqp_setup
 import pika
 from invokes import invoke_http
+from activePolicies import disable
 # from sms import sms
 import firebase_admin
 import os
@@ -37,11 +38,13 @@ policydata = getPolicies.get()
 
 amt = 0
 outstandingpolicy = ''
-custID = '113538498334279602821'
-getCustomerRef = db.reference("/customer/113538498334279602821")
+custID = ''
+getCustomerRef = db.reference("/customer/"+custID)
 data = getCustomerRef.get()
+
 getCustPolicies = db.reference("/Policy/")
 custdata = getCustPolicies.get()
+
 for (i,m) in custdata.items():
     for (e,j) in data.items():
         for k in j:
@@ -50,10 +53,7 @@ for (i,m) in custdata.items():
                     amt = m["Price"]
                     outstandingpolicy = k
 print(outstandingpolicy)
-
-
-
-# policy = policydata["123Africa0103-31-2022"]
+print(amt)
 policy1 = policydata
                                                                                                         
 # amt = 0
@@ -88,30 +88,41 @@ policy1 = policydata
 #                 "data": policy1data
 #             }       
 #     )
-    
+tryy = ''
+custURL = "http://localhost:5001/disable/<string:custID>"
+def cust(custId):
+    cust_res = invoke_http(custURL, json=custId)
+    tryy = disable(custId)
+    return tryy
+print(tryy)
+
+
 dict = {}
 @app.route('/display')
 def display():
-    getPoliciesLate = db.reference("/Policy")
-    policy1data = getPoliciesLate.get()
-    for (i,m) in custdata.items():
-        for (e,j) in data.items():
+    
+    amt = 0
+    getCustomerRef = db.reference("/customer/"+custID)
+    data1 = getCustomerRef.get()
+    getCustPolicies = db.reference("/Policy/")
+    custdata1 = getCustPolicies.get()
+    for (i,m) in custdata1.items():
+        for (e,j) in data1.items():
             for k in j:
                 if i == k:
                     dict[i] = m
-    print(dict)
-    
+                    if m['PaymentStatus'] == "Outstanding":
+                        amt = m["Price"]
     return  jsonify(
             {
                 "code": 200,
-                "data": dict
+                "data": dict,
+                "amt": amt
             }       
     )
 
 @app.route("/getpayment/<string:amt>", methods=['POST'])
 def payment(amt):
-    print(outstandingpolicy)
-    print(amt)
     hopper_ref = policy_ref.child(outstandingpolicy)
     hopper_ref.update({
             "PaymentStatus": "Paid",
@@ -133,7 +144,6 @@ def payment(amt):
 
 # make_payment()
 
-
 # @app.route('/getAmount')
 # def getAmt():
 #     getPoliciesLate = db.reference("/Policy")
@@ -153,22 +163,32 @@ def payment(amt):
 #                 }
 #             }
 #         )
-        
+
+
+dict1 = {}
 @app.route('/getAmount')
 def getAmt():
-    getPoliciesLate = db.reference("/Policy")
-    policy1data = getPoliciesLate.get()
-    for (i,m) in custdata.items():
-        for (e,j) in data.items():
-            for k in j:
-                if i == k:
-                    print(m)
+    amt = 0
+    getCustomerRef = db.reference("/customer/"+custID + "/")
+    data1 = getCustomerRef.get()
+    getCustPolicies = db.reference("/Policy/")
+    custdata1 = getCustPolicies.get()
+    for (i,m) in custdata1.items():
+        for (e,j) in data1.items():
+                for k in j:
+                    if i == k:
+                        
+                        dict1[i] = m
+                        if m['PaymentStatus'] == "Outstanding":
+                            amt = m["Price"]
+    print(amt)
+    print(dict1)
     return jsonify(
             {
                 "code": 200,
                 "data": {
                     "Amt":amt,
-                    "data":dict,
+                    "data":dict1,
                     "policykey":outstandingpolicy
                 }
             }

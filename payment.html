@@ -47,14 +47,13 @@
 
 
 <body onload="tryy()">
-    
+
     <script>
         var customerID = sessionStorage.getItem('customerid')
         console.log("#####CUSTOMER ID#####")
         console.log(customerID)
         console.log("#####################")
     </script>
-
 
     <header class="p-3 bg-dark text-white">
         <div class="container">
@@ -191,7 +190,7 @@
                                 <td>${data.data[i]['Status']}</td>
                             </tr>
                             `
-                           document.getElementById('paypal_app').style.display = 'block'
+                            document.getElementById('paypal_app').style.display = 'block'
                         }
                         if(data.data[i]['PaymentStatus'] == "Paid") {
        
@@ -218,60 +217,6 @@
                     console.log(this.message + error);
             });
         }
-
-        // function display() {
-        //     const policy1response =
-            
-        //     fetch("http://localhost:5501/getAmount")
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             console.log(response);
-        //             console.log(data.data['details'])
-        //             let str = ``
-        //             for (let i in data.data) {
-                        
-        //                 console.log(data.data[i])
-        //                 if (data.data[i]['PaymentStatus'] == "Outstanding") {
-                            
-        //                     str += 
-        //                     `
-        //                     <tr>
-        //                         <th>${i}</th>
-        //                         <td>${data.data[i]['PurchaseDate']}</td>
-        //                         <td>${data.data[i]['Price']}</td>
-        //                         <td>${data.data[i]['OutstandingAmt']}</td>
-        //                         <td>${data.data[i]['PaymentDate']}</td>
-        //                         <td>${data.data[i]['Status']}</td>
-        //                     </tr>
-        //                     `
-        //                     document.getElementById('paypal_app').style.display = 'block'
-        //                 }
-        //                 if(data.data[i]['PaymentStatus'] == "Paid") {
-       
-        //                     str += 
-        //                     `
-        //                     <tr>
-        //                         <th>${i}</th>
-        //                         <td>${data.data[i]['PurchaseDate']}</td>
-        //                         <td>${data.data[i]['Price']}</td>
-        //                         <td>${data.data[i]['OutstandingAmt']}</td>
-        //                         <td>${data.data[i]['PaymentDate']}</td>
-        //                         <td>${data.data[i]['Status']}</td>
-        //                     </tr>
-        //                     `
-        //                     document.getElementById("finalamt").innerText = 0
-        //                     document.getElementById('paypal_app').style.display = 'none'
-        //                 }
-        //             }
-                   
-        //             document.getElementById('displayTable').innerHTML = str
-
-        //         })
-        //         .catch(error => {
-        //             console.log(this.message + error);
-        //     });
-        // }
-       
 
         let msg = ''
         paypal.Buttons({
