@@ -205,9 +205,10 @@
                           .then(data => {
                               console.log(response);
                               var status = data.data
-                              if (status != "true"){
+                              if (status == "true"){
                                 console.log("lol")
                                 document.getElementById("comehere").style.display = "none"
+                                alert("There are outstanding payments!")
                               }
 
                           })
