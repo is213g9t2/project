@@ -361,14 +361,16 @@
                 'End Date': document.getElementById(region+'endTrip').value,
                 'Current Date': date
               })
+              
               strtest = String(signupdetails)
               // const dict = {strtest}
               // const json = JSON.stringify(dict)
               console.log(signupdetails)
+              s = signupdetails['Username'] + "," + signupdetails['Region'] + "," + signupdetails['Specific Country'] + "," + signupdetails['Start Date'] + "," +  signupdetails['End Date']
 
 
               $.ajax({
-                url:'http://localhost:5500/activePolicies/'+ strtest,
+                url:'http://localhost:5001/activePolicies/'+ s,
                 type:"POST",
                 contentType: "application/json",
                 data: JSON.stringify(signupdetails)
