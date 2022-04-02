@@ -14,10 +14,9 @@
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script
-       src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
+    
   <!-- Bootstrap core CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -102,7 +101,7 @@
   const provider = new GoogleAuthProvider();
 </script>
 
-<body>
+<body onload = "putInput()">
 
   <header class="p-3 bg-dark text-white">
     <div class="container">
@@ -139,6 +138,7 @@
           <p class="lead text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem aperiam
             quis deserunt dignissimos ipsa corrupti veritatis quo pariatur. Fuga consequuntur quaerat assumenda at
             sapiente sunt explicabo consectetur eaque tempore expedita.</p>
+            <span id="custID"></span>
           <!-- <p>
             <a href="#" class="btn btn-primary my-2">Main call to action</a>
             <a href="#" class="btn btn-secondary my-2">Secondary action</a>
@@ -191,6 +191,12 @@
             // $('#main-container')
             //     .append("<label>"+message+"</label>");
             // }
+
+            function putInput() {
+              var customerID = localStorage.getItem('customerid')
+              // console.log(customerID) -- success
+              document.getElementById("custID").innerText = customerID
+            }
 
             let x = ''
             $(async() => {           
@@ -356,19 +362,23 @@
                 'Current Date': date
               })
               strtest = String(signupdetails)
-              const dict = {strtest}
-              const json = JSON.stringify(dict)
+              // const dict = {strtest}
+              // const json = JSON.stringify(dict)
               console.log(signupdetails)
+
+
               $.ajax({
-                url:'http://localhost:5500/activePolicies/'+ signupdetails,
+                url:'http://localhost:5500/activePolicies/'+ strtest,
                 type:"POST",
                 contentType: "application/json",
-                data: JSON.stringify(json)
+                data: JSON.stringify(signupdetails)
               });
+
+              
             
             }          
           
-        //     fetch('http://localhost:5500/activepolicies/'+signupdetails['Username'],
+        //     fetch('http://localhost:5500/activepolicies/'+ signupdetails,
         // {
         //     method: "POST",
         //     headers: {
@@ -381,7 +391,7 @@
         //       console.log(data);
         //       result = data.data;
         //       console.log(result);
-        //   })
+        //   })}
         
           </script>
 

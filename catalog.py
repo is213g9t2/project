@@ -20,7 +20,7 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 
 
 
-ref = db.reference("/")
+ref = db.reference("/") 
 
 
 #Get all available policies
@@ -30,6 +30,15 @@ def get_all():
     result = json.load(catalog)
 
     return result,200
+
+
+import json
+with open("catalog.json", "r") as f:
+	file_contents = json.load(f)
+ref.update(file_contents)
+
+
+
 
 
 if __name__ == "__main__":
