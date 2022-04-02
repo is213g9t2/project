@@ -195,12 +195,32 @@
             let x = ''
 
             function putInput() {
-              var customerID = sessionStorage.getItem('customerid')
-              // console.log(customerID) -- success
-              document.getElementById("custID").innerText = customerID
-            }
+                var customerID = sessionStorage.getItem('customerid')
+                // console.log(customerID) -- success
+                document.getElementById("custID").innerText = customerID
 
-            console.log(sessionStorage.getItem('customerid'))
+                const response =
+                      fetch("http://localhost:5001/disable/" + customerID)
+                          .then(response => response.json())
+                          .then(data => {
+                              console.log(response);
+                              var status = data.data
+                              if (status != "true"){
+                                console.log("lol")
+                                document.getElementById("comehere").style.display = "none"
+                              }
+
+                          })
+                          .catch(error => {
+                              console.log(this.message + error);
+                      });
+
+
+
+
+
+                      
+              }
 
 
             $(async() => {           
@@ -246,15 +266,12 @@
                                 <p class="card-text">${countries[each_country]['description']}</p>
                               
                                 
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#signupModal${each_country}" id=myBtn>Sign Up!</button>
+                                <button type="button" id= "myBtn" class="btn btn-warning" data-toggle="modal" data-target="#signupModal${each_country}" >Sign Up!</button>
                             </div>
                           </div>
                         </div>
                         `
                         + 
-                                // <div class="d-flex justify-content-between align-items-center">
-                                //   <button onclick="signup('${each_country}')" id="${each_country}" class="btn btn-warning">Sign Up!</button>
-                                // </div>
           
                         // POPUP MODAL FORM
                         `
@@ -334,6 +351,7 @@
             });
 
 
+
             function signup(region) {
 
               //get date
@@ -386,18 +404,6 @@
             
             }
             
-                      
-            const policyresponse =
-            
-            fetch("http://localhost:5001/disable")
-                .then(response => response.json())
-                .then(data => {
-                    console.log(response);
-                    console.log(data.data)
-                  })
-                .catch(error => {
-                    console.log(this.message + error);
-            });
         
           </script>
 

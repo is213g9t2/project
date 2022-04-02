@@ -68,35 +68,27 @@ def get_all(unpaid):
     return
 
 
-def cust(s):
-    print(s)
-    return s
 
-@app.route("/disable/<string:custID>" , methods=['GET'])
+@app.route("/disable/<string:custID>")
 def disable(custID):
-
-    
-
-    disabled = "False"
-
+    disabled = "false"
     ref = db.reference("/customer/" + custID)
     data = ref.get()
     # print(data)
     length = len(data)
 
     if length != 2:
-
         ref = db.reference("/customer/" + custID + "/ActivePolicies")
         data = ref.get()
-        print(data)
         
         for ch in data:
-
             ref = db.reference("/Policy/" + ch)
             data = ref.get()
             policyData = data["PaymentStatus"]
-            if ch["PaymentStatus"] == "Outstanding":
-                disabled = "True"
+            if policyData == "Outstanding":
+                disabled = "true"
+                break
+            
     return  jsonify(
         {
             "code": 200,
@@ -122,7 +114,6 @@ def get_details(s):
     catalogID = signupdetails[1]
 
     customerID = signupdetails[0]
-    cust(customerID)
     
     startDate = signupdetails[3]
 
