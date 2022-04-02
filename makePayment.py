@@ -14,11 +14,6 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-getpayment_URL = "http://localhost:5501/getAmount"
-response = requests.get(getpayment_URL)
-json_data = response.json()
-r = json.dumps(json_data)
-
 # def write_json(data, filename="test.json"):
 #     with open (filename, "w") as datafile:
 #         response = requests.get(getpayment_URL)
@@ -27,16 +22,22 @@ r = json.dumps(json_data)
 #         data = json.dumps(json_data)
 #         json.dump(data, datafile, indent=4)
 
-
+# paymenturl = "http://localhost:5001/display"
 @app.route("/make_payment")
 def make_payment():
     # with open ("test.json") as json_file:
     #     data = json.load(json_file)
     #     print(data)
-   
+    
+        getpayment_URL = "http://localhost:5501/getAmount"
+        response = requests.get(getpayment_URL)
+        json_data = response.json()
+        r = json.dumps(json_data)
+
         try:
             order = json_data
             print(order)
+
             amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="123.invoice", 
             body=r)
 
@@ -44,7 +45,7 @@ def make_payment():
             print('\n------------------------')
             print('\nresult: ', r)
             return jsonify(json_data)
-            
+
         except Exception as e:
             # Unexpected error in code
             exc_type, exc_obj, exc_tb = sys.exc_info()

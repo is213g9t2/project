@@ -7,6 +7,7 @@ from invokes import invoke_http
 # from sms import sms
 import firebase_admin
 import os
+from makePayment import make_payment
 from twilio.rest import Client
 
 app = Flask(__name__)
@@ -76,15 +77,23 @@ def payment(amt):
     hopper_ref.update({
             "PaymentStatus": "Paid",
             "PaymentDate":dateee,
-            "OutstandingAmt": 0,
+            "OutstandingAmt": '0',
             "Status":"Active"
     })
     # sms()
+    make_payment()
     return jsonify(
         {
             "data": amt
         }
     ), 201
+# paymenturl = "http://localhost:5001/make_payment"
+
+# test = invoke_http(paymenturl, json=policy1)
+# print("hi",test)
+
+# make_payment()
+
 
 @app.route('/getAmount')
 def getAmt():
@@ -95,8 +104,6 @@ def getAmt():
         print(x,y)
         if y['PaymentStatus'] == "Outstanding":
             amt = y["Price"]
-
-    
     return jsonify(
             {
                 "code": 200,
@@ -106,14 +113,14 @@ def getAmt():
                 }
             }
         )
-@app.route('/getDetails')
-def getDetails():
-    
-    return  jsonify(
-            {
-                "code": 200,
-                "data": policy1
-            }       
-    )
+
+# @app.route('/getDetails')
+# def getDetails():
+#     return  jsonify(
+#             {
+#                 "code": 200,
+#                 "data": policy1
+#             }       
+#     )
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='5501',debug=True)
