@@ -4,7 +4,7 @@
     "Asia01":
             {
                 "region":"Asia",
-                "price": "$800",
+                "price": "$20",
                 "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "id": "001",
                 "image": "assets/regions/1.jpg"
@@ -13,7 +13,7 @@
     "Europe01":
             {
                 "region":"Europe",
-                "price": "$1000",
+                "price": "$40",
                 "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "id": "002",
                 "image": "assets/regions/2.jpg"
@@ -23,7 +23,7 @@
     "North America01":
             {
                 "region":"North America",
-                "price": "$1000",
+                "price": "$60",
                 "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "id": "003",
                 "image": "assets/regions/3.jpg"
@@ -33,7 +33,7 @@
     "South America01":
             {
                 "region":"South America",
-                "price": "$1000",
+                "price": "$80",
                 "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "id": "004",
                 "image": "assets/regions/4.jpg"
@@ -44,7 +44,7 @@
     "Africa01":
             {
                 "region":"Africa",
-                "price": "$1000",
+                "price": "$100",
                 "description": "Covers Personal accident, Medical expenses overseas, Cancelling your trip and Loss/damage to personal belongings",
                 "id": "005",
                 "image": "assets/regions/5.jpg"
