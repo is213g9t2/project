@@ -42,16 +42,13 @@
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 
-    <script>
-        var customerID = sessionStorage.getItem('customerid')
-        console.log("#####CUSTOMER ID#####")
-        console.log(customerID)
-        console.log("#####################")
-    </script>
 
 </head>
 
+
 <body onload="tryy()">
+
+
 
     <header class="p-3 bg-dark text-white">
         <div class="container">
@@ -150,9 +147,12 @@
 
 
     <script>
-  
+        var customerID = sessionStorage.getItem('customerid')
+        console.log("#####CUSTOMER ID#####")
+        console.log(customerID)
+        console.log("#####################")
         const response =
-            fetch("http://localhost:5501/getAmount")
+            fetch("http://localhost:5501/getAmount/"+customerID)
                 .then(response => response.json())
                 .then(data => {
                     console.log(response);
@@ -163,10 +163,11 @@
                 .catch(error => {
                     console.log(this.message + error);
             });
+
         function tryy() {
-            const policyresponse =
+            const response =
             
-            fetch("http://localhost:5501/display")
+            fetch("http://localhost:5501/display/"+ customerID)
                 .then(response => response.json())
                 .then(data => {
                     console.log(response);
@@ -174,7 +175,7 @@
                     let str = ``
                     for (let i in data.data) {
                         
-                        console.log(data.data[i])
+                        console.log(i)
                         if (data.data[i]['PaymentStatus'] == "Outstanding") {
                             
                             str += 
@@ -215,60 +216,6 @@
                     console.log(this.message + error);
             });
         }
-
-        // function display() {
-        //     const policy1response =
-            
-        //     fetch("http://localhost:5501/getAmount")
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             console.log(response);
-        //             console.log(data.data['details'])
-        //             let str = ``
-        //             for (let i in data.data) {
-                        
-        //                 console.log(data.data[i])
-        //                 if (data.data[i]['PaymentStatus'] == "Outstanding") {
-                            
-        //                     str += 
-        //                     `
-        //                     <tr>
-        //                         <th>${i}</th>
-        //                         <td>${data.data[i]['PurchaseDate']}</td>
-        //                         <td>${data.data[i]['Price']}</td>
-        //                         <td>${data.data[i]['OutstandingAmt']}</td>
-        //                         <td>${data.data[i]['PaymentDate']}</td>
-        //                         <td>${data.data[i]['Status']}</td>
-        //                     </tr>
-        //                     `
-        //                     document.getElementById('paypal_app').style.display = 'block'
-        //                 }
-        //                 if(data.data[i]['PaymentStatus'] == "Paid") {
-       
-        //                     str += 
-        //                     `
-        //                     <tr>
-        //                         <th>${i}</th>
-        //                         <td>${data.data[i]['PurchaseDate']}</td>
-        //                         <td>${data.data[i]['Price']}</td>
-        //                         <td>${data.data[i]['OutstandingAmt']}</td>
-        //                         <td>${data.data[i]['PaymentDate']}</td>
-        //                         <td>${data.data[i]['Status']}</td>
-        //                     </tr>
-        //                     `
-        //                     document.getElementById("finalamt").innerText = 0
-        //                     document.getElementById('paypal_app').style.display = 'none'
-        //                 }
-        //             }
-                   
-        //             document.getElementById('displayTable').innerHTML = str
-
-        //         })
-        //         .catch(error => {
-        //             console.log(this.message + error);
-        //     });
-        // }
-       
 
         let msg = ''
         paypal.Buttons({
