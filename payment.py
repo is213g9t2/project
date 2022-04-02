@@ -50,6 +50,7 @@ for (x,y) in policy1.items():
         outstandingpolicy = x
 print(amt)
 print(outstandingpolicy)
+print(policy1[outstandingpolicy])
     # if policy["PaymentStatus"] == "Outstanding":
     #     amt = policy["Price"]
 
@@ -109,11 +110,12 @@ def getAmt():
                 "code": 200,
                 "data": {
                     "Amt":amt,
-                    "details":policy1
+                    "details":policy1,
+                    "policykey":outstandingpolicy
                 }
             }
         )
-
+        
 # @app.route('/getDetails')
 # def getDetails():
 #     return  jsonify(
