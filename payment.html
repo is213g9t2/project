@@ -48,12 +48,6 @@
 
 <body onload="tryy()">
 
-    <script>
-        var customerID = sessionStorage.getItem('customerid')
-        console.log("#####CUSTOMER ID#####")
-        console.log(customerID)
-        console.log("#####################")
-    </script>
 
 
     <header class="p-3 bg-dark text-white">
@@ -153,9 +147,12 @@
 
 
     <script>
-  
+        var customerID = sessionStorage.getItem('customerid')
+        console.log("#####CUSTOMER ID#####")
+        console.log(customerID)
+        console.log("#####################")
         const response =
-            fetch("http://localhost:5501/getAmount")
+            fetch("http://localhost:5501/getAmount/"+customerID)
                 .then(response => response.json())
                 .then(data => {
                     console.log(response);
@@ -166,10 +163,11 @@
                 .catch(error => {
                     console.log(this.message + error);
             });
+
         function tryy() {
-            const policyresponse =
+            const response =
             
-            fetch("http://localhost:5501/display")
+            fetch("http://localhost:5501/display/"+ customerID)
                 .then(response => response.json())
                 .then(data => {
                     console.log(response);

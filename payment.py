@@ -35,25 +35,25 @@ policydata = getPolicies.get()
 # print(policydata)
 
 
-amt = 0
-outstandingpolicy = ''
-custID = '113538498334279602821'
-getCustomerRef = db.reference("/customer/113538498334279602821")
-data = getCustomerRef.get()
+# amt = 0
+# outstandingpolicy = ''
+# custID = '113538498334279602821'
+# getCustomerRef = db.reference("/customer/113538498334279602821")
+# data = getCustomerRef.get()
 
-getCustPolicies = db.reference("/Policy/")
-custdata = getCustPolicies.get()
+# getCustPolicies = db.reference("/Policy/")
+# custdata = getCustPolicies.get()
 
-for (i,m) in custdata.items():
-    for (e,j) in data.items():
-        for k in j:
-            if i == k:
-                if m['PaymentStatus'] == "Outstanding":
-                    amt = m["Price"]
-                    outstandingpolicy = k
-print(outstandingpolicy)
-print(amt)
-policy1 = policydata
+# for (i,m) in custdata.items():
+#     for (e,j) in data.items():
+#         for k in j:
+#             if i == k:
+#                 if m['PaymentStatus'] == "Outstanding":
+#                     amt = m["Price"]
+#                     outstandingpolicy = k
+# print(outstandingpolicy)
+# print(amt)
+# policy1 = policydata
                                                                               
 # amt = 0
 # outstandingpolicy = ''
@@ -89,11 +89,11 @@ policy1 = policydata
 #     )
     
 dict = {}
-@app.route('/display')
-def display():
+@app.route('/display/<string:customerID>')
+def display(customerID):
     
     amt = 0
-    getCustomerRef = db.reference("/customer/"+custID)
+    getCustomerRef = db.reference("/customer/"+customerID)
     data1 = getCustomerRef.get()
     getCustPolicies = db.reference("/Policy/")
     custdata1 = getCustPolicies.get()
@@ -157,10 +157,10 @@ def payment(amt):
 
 
 dict1 = {}
-@app.route('/getAmount')
-def getAmt():
+@app.route('/getAmount/<string:customerID>')
+def getAmt(customerID):
     amt = 0
-    getCustomerRef = db.reference("/customer/"+custID + "/")
+    getCustomerRef = db.reference("/customer/"+customerID + "/")
     data1 = getCustomerRef.get()
     getCustPolicies = db.reference("/Policy/")
     custdata1 = getCustPolicies.get()
