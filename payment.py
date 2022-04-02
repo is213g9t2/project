@@ -8,7 +8,7 @@ from invokes import invoke_http
 import firebase_admin
 import os
 from makePayment import make_payment
-from twilio.rest import Client
+# from twilio.rest import Client
 
 app = Flask(__name__)
 
