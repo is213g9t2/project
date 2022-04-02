@@ -65,6 +65,7 @@ from firebase_admin import db
 
 @app.route("/activePolicies/<string:signupdetails>", methods=['POST'])
 def get_details(signupdetails):
+    print(signupdetails)
 # customerID to be gotten from payment complex microservice
     ref = db.reference("/customer/customerID")
 
@@ -163,7 +164,7 @@ def get_details(signupdetails):
 
 if __name__ == '__main__':
     print("This is flask for " + os.path.basename(__file__) + ": manage orders ...")
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5501, debug=True)
 
 
 
