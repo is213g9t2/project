@@ -29,24 +29,37 @@ def customer(details):
 
     write_json(details)
 
+    # Reads customer.json and publishes on Firebase
+    cred_obj = firebase_admin.credentials.Certificate('esdg9t02-insurance-firebase-adminsdk-umgr1-f4dd6e06a6.json')
+    default_app = firebase_admin.initialize_app(cred_obj, {
+        'databaseURL':'https://esdg9t02-insurance-default-rtdb.asia-southeast1.firebasedatabase.app/'
+        })
+
+    from firebase_admin import db
+
+    ref = db.reference("/")
+    with open("customer.json", "r") as f:
+        file_contents = json.load(f)
+    ref.update(file_contents)
+
     return jsonify(
         {
             "data": details
         }
     ), 201
 
-# Reads customer.json and publishes on Firebase
-cred_obj = firebase_admin.credentials.Certificate('esdg9t02-insurance-firebase-adminsdk-umgr1-f4dd6e06a6.json')
-default_app = firebase_admin.initialize_app(cred_obj, {
-	'databaseURL':'https://esdg9t02-insurance-default-rtdb.asia-southeast1.firebasedatabase.app/'
-	})
+# # Reads customer.json and publishes on Firebase
+# cred_obj = firebase_admin.credentials.Certificate('esdg9t02-insurance-firebase-adminsdk-umgr1-f4dd6e06a6.json')
+# default_app = firebase_admin.initialize_app(cred_obj, {
+# 	'databaseURL':'https://esdg9t02-insurance-default-rtdb.asia-southeast1.firebasedatabase.app/'
+# 	})
 
-from firebase_admin import db
+# from firebase_admin import db
 
-ref = db.reference("/")
-with open("customer.json", "r") as f:
-    file_contents = json.load(f)
-ref.set(file_contents)
+# ref = db.reference("/")
+# with open("customer.json", "r") as f:
+#     file_contents = json.load(f)
+# ref.update(file_contents)
 
 if __name__ == "__main__":
     app.run(port='5500',debug=True)

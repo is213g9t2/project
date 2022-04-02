@@ -165,18 +165,16 @@
                 "Content-type": "application/json"
             },
             body: customer
+            
         })
         .then(response => response.json())
         .then(data => {
             console.log(data);
             result = data.data;
             console.log(result);
-        })
-
-      window.location.replace("./index.html")
+            window.location.href = "index.html"
+        }) 
     }
-
-    
     function onFailure(error) {
       console.log(error);
     }

@@ -257,17 +257,17 @@
                                 <form action="" >
                                   <div class="form-div">
                                     <label for="specific_country">Country of travel</label>
-                                    <input type="text" class="field_class" placeholder="Enter specific country of travel" name="specific_country" id="specific_country"required>
+                                    <input type="text" class="field_class" placeholder="Enter specific country of travel" name="specific_country" id="${each_country}specific_country"required>
                                   </div>
 
                                   <div class="pb-3"
                                     <label for="start">Start date:</label>
-                                    <input type="date" id="startTrip" name="trip-start"
+                                    <input type="date" id="${each_country}startTrip" name="trip-start"
                                           value="2022-04-05"
                                           min="2022-04-05" max="2023-04-05" required>
 
                                     <label for="end">End date:</label>
-                                    <input type="date" id="endTrip" name="trip-end"
+                                    <input type="date" id="${each_country}endTrip" name="trip-end"
                                           value="2022-04-05"
                                           min="2022-04-05" max="2023-04-05" required>
                                   </div>
@@ -322,9 +322,9 @@
                 // gets customerid from signin.html
                 'Username': custid, 
                 'Region': String(region),
-                'Specific Country': document.getElementById('specific_country'),
-                'Start Date': document.getElementById('startTrip'),
-                'End Date': document.getElementById('endTrip')
+                'Specific Country': document.getElementById(region+'specific_country').value,
+                'Start Date': document.getElementById(region+'startTrip').value,
+                'End Date': document.getElementById(region+'endTrip').value
               })
               strtest = String(signupdetails)
               const dict = {strtest}
