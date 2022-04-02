@@ -78,17 +78,21 @@ def disable(custID):
     length = len(data)
 
     if length != 2:
+
         ref = db.reference("/customer/" + custID + "/ActivePolicies")
         data = ref.get()
-        
+
         for ch in data:
-            ref = db.reference("/Policy/" + ch)
-            data = ref.get()
-            policyData = data["PaymentStatus"]
-            if policyData == "Outstanding":
-                disabled = "true"
-                break
-            
+            # print(ch)
+            ref2 = db.reference("/Policy/" + ch)
+            data2 = ref2.get()
+            for ch2 in data2:
+                if ch2 == ch:
+                    policyData = data["PaymentStatus"]
+                    if policyData == "Outstanding":
+                        disabled = "true"
+                        break     
+
     return  jsonify(
         {
             "code": 200,
@@ -114,6 +118,7 @@ def get_details(s):
     catalogID = signupdetails[1]
 
     customerID = signupdetails[0]
+    # customerID = "123"
     
     startDate = signupdetails[3]
 
@@ -154,17 +159,19 @@ def get_details(s):
         ref = db.reference("/customer/" + customerID + "/ActivePolicies")
         data = ref.get()
         print(data)
-        
+
         for ch in data:
-            print(ch)
-            ref = db.reference("/Policy/" + ch)
-            data = ref.get()
-            policyData = data["PaymentStatus"]
-            if policyData == "Outstanding":
-                unpaid = ch
-                rabbit = unpaid
-                get_all(unpaid)
-                break
+            # print(ch)
+            ref2 = db.reference("/Policy/" + ch)
+            data2 = ref2.get()
+            for ch2 in data2:
+                if ch2 == ch:
+                    policyData = data["PaymentStatus"]
+                    if policyData == "Outstanding":
+                        unpaid = ch
+                        rabbit = unpaid
+                        get_all(unpaid)
+                        break
 
         else:
             ref = db.reference("/customer/" + customerID)
