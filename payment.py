@@ -4,6 +4,7 @@ import json
 import amqp_setup
 import pika
 from invokes import invoke_http
+from activePolicies import disable
 # from sms import sms
 import firebase_admin
 import os
@@ -37,8 +38,8 @@ policydata = getPolicies.get()
 
 amt = 0
 outstandingpolicy = ''
-custID = '113538498334279602821'
-getCustomerRef = db.reference("/customer/113538498334279602821")
+custID = ''
+getCustomerRef = db.reference("/customer/"+custID)
 data = getCustomerRef.get()
 
 getCustPolicies = db.reference("/Policy/")
@@ -53,7 +54,6 @@ for (i,m) in custdata.items():
                     outstandingpolicy = k
 print(outstandingpolicy)
 print(amt)
-
 policy1 = policydata
                                                                                                         
 # amt = 0
@@ -88,13 +88,22 @@ policy1 = policydata
 #                 "data": policy1data
 #             }       
 #     )
-    
+tryy = ''
+custURL = "http://localhost:5001/disable/<string:custID>"
+def cust(custId):
+    cust_res = invoke_http(custURL, json=custId)
+    tryy = disable(custId)
+    return tryy
+print(tryy)
+
+
 dict = {}
 @app.route('/display')
 def display():
-    getCustomerRef = db.reference("/customer/113538498334279602821")
+    
+    amt = 0
+    getCustomerRef = db.reference("/customer/"+custID)
     data1 = getCustomerRef.get()
-
     getCustPolicies = db.reference("/Policy/")
     custdata1 = getCustPolicies.get()
     for (i,m) in custdata1.items():
@@ -102,17 +111,18 @@ def display():
             for k in j:
                 if i == k:
                     dict[i] = m
+                    if m['PaymentStatus'] == "Outstanding":
+                        amt = m["Price"]
     return  jsonify(
             {
                 "code": 200,
-                "data": dict
+                "data": dict,
+                "amt": amt
             }       
     )
 
 @app.route("/getpayment/<string:amt>", methods=['POST'])
 def payment(amt):
-    print(outstandingpolicy)
-    print(amt)
     hopper_ref = policy_ref.child(outstandingpolicy)
     hopper_ref.update({
             "PaymentStatus": "Paid",
@@ -159,14 +169,19 @@ dict1 = {}
 @app.route('/getAmount')
 def getAmt():
     amt = 0
-    for (i,m) in custdata.items():
-        for (e,j) in data.items():
+    getCustomerRef = db.reference("/customer/"+custID + "/")
+    data1 = getCustomerRef.get()
+    getCustPolicies = db.reference("/Policy/")
+    custdata1 = getCustPolicies.get()
+    for (i,m) in custdata1.items():
+        for (e,j) in data1.items():
                 for k in j:
                     if i == k:
+                        
                         dict1[i] = m
-                        print(dict1)
                         if m['PaymentStatus'] == "Outstanding":
                             amt = m["Price"]
+    print(amt)
     print(dict1)
     return jsonify(
             {
