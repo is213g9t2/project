@@ -28,10 +28,11 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 
 from firebase_admin import db
 
+custIDtest = ''
 
 # @app.route("/activePolicies")
 
-def get_all(rabbit):
+def get_all(unpaid):
     code = 404
 
     if code not in range(200, 300):
@@ -57,16 +58,34 @@ def get_all(rabbit):
             {
                 "code": code,
                 "data": {
-                    "unpaid": rabbit
+                    "unpaid": unpaid
                 },
                 "message": message
             })
 
     return
 
+
+def cust(s):
+    print(s)
+    return s
+
+
+@app.route("/disable")
+def disable():
+    ref = db.reference("/customer/" + custIDtest + "/ActivePolicies")
+    data = ref.get()
+    print(custIDtest)
+    return jsonify(
+            {
+                "code": 200,
+                "data": "true"
+            }
+        )
+
+
 @app.route("/activePolicies/<string:s>", methods=['POST'])
 def get_details(s):
-    disabled = False
     signupdetails = s.split(",")
 
 # customerID to be gotten from payment complex microservice
@@ -84,8 +103,9 @@ def get_details(s):
     # print(catalogID)
 
     customerID = signupdetails[0]
+    cust(customerID)
     # print(customerID)
-
+    
     startDate = signupdetails[3]
 
     ref = db.reference("/Catalog/" + catalogID)
@@ -130,8 +150,8 @@ def get_details(s):
         print(data)
         
         for ch in data:
+            print(ch)
             if ch["PaymentStatus"] == "Outstanding":
-                disabled = True
                 unpaid = ch 
         print(unpaid)
         
@@ -145,8 +165,8 @@ def get_details(s):
             # print(policyData)
             # redirect to payment (nikki) page
             # print("Outstanding NO GOOOOOOOOOOO")
-            rabbit = unpaid + "for customer" + customerID + "Outstanding"
-            get_all(rabbit)
+            rabbit = unpaid
+            get_all(unpaid)
 
         else:
             ref = db.reference("/customer/" + customerID)
@@ -174,6 +194,7 @@ def get_details(s):
                     "Status":"Pending"
                     
             })  
+
 
 
 

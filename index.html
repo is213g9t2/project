@@ -192,15 +192,20 @@
             //     .append("<label>"+message+"</label>");
             // }
 
+            let x = ''
+
             function putInput() {
               var customerID = localStorage.getItem('customerid')
               // console.log(customerID) -- success
               document.getElementById("custID").innerText = customerID
             }
 
-            let x = ''
+            console.log(localStorage.getItem('customerid'))
+
+
             $(async() => {           
             var serviceURL = "http://localhost:5500/catalog";
+            
     
             try {
                 const response =
@@ -241,7 +246,7 @@
                                 <p class="card-text">${countries[each_country]['description']}</p>
                               
                                 
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#signupModal${each_country}">Sign Up!</button>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#signupModal${each_country}" id=myBtn>Sign Up!</button>
                             </div>
                           </div>
                         </div>
@@ -319,7 +324,7 @@
                     //     // unexpected outcome, throw the error
                     //     throw response.status;
                     // }
-                } catch (error) {
+                }catch (error) {
                     // Errors when calling the service; such as network error, 
                     // service offline, etc
                     // showError
@@ -327,6 +332,7 @@
                 } // error
 
             });
+
 
             function signup(region) {
 
@@ -378,21 +384,20 @@
 
               
             
-            }          
-          
-        //     fetch('http://localhost:5001/disable/',
-        // {
-        //     method: "GET",
-        //     headers: {
-        //         "Content-type": "application/json",
-        //     },
-        // })
-          
-        //   .then(data => {
-        //       console.log(data);
-        //       result = data.data;
-        //       console.log(result);
-        //   })
+            }
+            
+                      
+            const policyresponse =
+            
+            fetch("http://localhost:5001/disable")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(response);
+                    console.log(data.data)
+                  })
+                .catch(error => {
+                    console.log(this.message + error);
+            });
         
           </script>
 
