@@ -42,6 +42,12 @@
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 
+
+</head>
+
+
+<body onload="tryy()">
+    
     <script>
         var customerID = sessionStorage.getItem('customerid')
         console.log("#####CUSTOMER ID#####")
@@ -49,9 +55,6 @@
         console.log("#####################")
     </script>
 
-</head>
-
-<body onload="tryy()">
 
     <header class="p-3 bg-dark text-white">
         <div class="container">
@@ -174,7 +177,7 @@
                     let str = ``
                     for (let i in data.data) {
                         
-                        console.log(data.data[i])
+                        console.log(i)
                         if (data.data[i]['PaymentStatus'] == "Outstanding") {
                             
                             str += 
