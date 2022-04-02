@@ -57,6 +57,7 @@ print(policy1[outstandingpolicy])
     # elif policy["PaymentStatus"] == "Paid":
     #     amt = policy["OutstandingAmt"]
     # print(amt)
+    
 @app.route('/display')
 def display():
     getPoliciesLate = db.reference("/Policy")

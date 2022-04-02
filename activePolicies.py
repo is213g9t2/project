@@ -15,6 +15,8 @@ import amqp_setup
 import pika
 import json
 
+from customer import customer
+
 app = Flask(__name__)
 CORS(app)
 
@@ -70,18 +72,38 @@ def cust(s):
     print(s)
     return s
 
+@app.route("/disable/<string:custID>" , methods=['GET'])
+def disable(custID):
 
-@app.route("/disable")
-def disable():
-    ref = db.reference("/customer/" + custIDtest + "/ActivePolicies")
+    
+
+    disabled = "False"
+
+    ref = db.reference("/customer/" + custID)
     data = ref.get()
-    print(custIDtest)
-    return jsonify(
-            {
-                "code": 200,
-                "data": "true"
-            }
-        )
+    # print(data)
+    length = len(data)
+
+    if length != 2:
+
+        ref = db.reference("/customer/" + custID + "/ActivePolicies")
+        data = ref.get()
+        print(data)
+        
+        for ch in data:
+
+            ref = db.reference("/Policy/" + ch)
+            data = ref.get()
+            policyData = data["PaymentStatus"]
+            if ch["PaymentStatus"] == "Outstanding":
+                disabled = "True"
+    return  jsonify(
+        {
+            "code": 200,
+            "data": disabled
+        }       
+)
+
 
 
 @app.route("/activePolicies/<string:s>", methods=['POST'])
@@ -151,6 +173,9 @@ def get_details(s):
         
         for ch in data:
             print(ch)
+            ref = db.reference("/Policy/" + ch)
+            data = ref.get()
+            policyData = data["PaymentStatus"]
             if ch["PaymentStatus"] == "Outstanding":
                 unpaid = ch 
         print(unpaid)
