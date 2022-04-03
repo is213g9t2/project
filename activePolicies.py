@@ -117,7 +117,9 @@ def get_details(s):
     
     phoneNumber = signupdetails[3]
 
-
+    specificCountry = signupdetails[4]
+    startDate = signupdetails[5]
+    endDate = signupdetails[6]
 
     ref = db.reference("/Catalog/" + catalogID)
     data = ref.get()
@@ -149,7 +151,10 @@ def get_details(s):
                 'Price': price,
                 "OutstandingAmt": price,
                 "Status":"Pending",
-                "phoneNumber": phoneNumber
+                "phoneNumber": phoneNumber,
+                "specificCountry": specificCountry,
+                "startDate": startDate,
+                "endDate": endDate
         })
 
     else:
