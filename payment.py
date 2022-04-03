@@ -32,9 +32,72 @@ policy_ref = ref.child('Policy')
 
 getPolicies = db.reference("/Policy")
 policydata = getPolicies.get()
-# print(policydata)
 
 
+
+
+outstandingpolicy= ''
+@app.route("/getpayment/<string:amt>/<string:customerID>", methods=['POST'])
+def payment(amt,customerID):
+    amt = 0
+    outstandingpolicy= ''
+    getCustomerRef = db.reference("/customer/"+customerID)
+    data1 = getCustomerRef.get()
+    getCustPolicies = db.reference("/Policy/")
+    custdata1 = getCustPolicies.get()
+    print(custdata1)
+    for (i,m) in custdata1.items():
+        for (e,j) in data1.items():
+            for k in j:
+                if i == k:
+                    dict[i] = m
+                    if m['PaymentStatus'] == "Outstanding":
+                        amt = m["Price"]
+                        outstandingpolicy = i
+                        print(outstandingpolicy)
+    make_payment(customerID)
+    hopper_ref = policy_ref.child(outstandingpolicy)
+    hopper_ref.update({
+            "PaymentStatus": "Paid",
+            "PaymentDate":dateee,
+            "OutstandingAmt": '0',
+            "Status":"Active"
+    })
+    # sms()
+    
+    return jsonify(
+        {
+            "data": amt
+        }
+    ), 201
+
+dict={}
+
+@app.route('/getDetails/<string:customerID>')
+def getDetails(customerID):
+    getPolicy = "http://localhost:5001/getPolicy/" + customerID
+    policy = invoke_http(getPolicy)
+    amt = 0
+    outstandingpolicy = ''
+    for i in policy:
+        getCustPolicies = db.reference("/Policy/")
+        custdata1 = getCustPolicies.get()
+        for e in policy['data']:
+                for (i,m) in custdata1.items():
+                    if i == e:
+                        dict[e] = m
+                        if m['PaymentStatus'] == "Outstanding":
+                            amt = m["Price"]
+                            outstandingpolicy = i
+    print(outstandingpolicy)
+    return  jsonify(
+            {
+                "code": 200,
+                "data": dict,
+                "amt":amt,
+                "policykey": outstandingpolicy
+            }       
+    )
 # amt = 0
 # outstandingpolicy = ''
 # custID = '113538498334279602821'
@@ -88,52 +151,29 @@ policydata = getPolicies.get()
 #             }       
 #     )
     
-dict = {}
-@app.route('/display/<string:customerID>')
-def display(customerID):
-    
-    amt = 0
-    getCustomerRef = db.reference("/customer/"+customerID)
-    data1 = getCustomerRef.get()
-    getCustPolicies = db.reference("/Policy/")
-    custdata1 = getCustPolicies.get()
-    for (i,m) in custdata1.items():
-        for (e,j) in data1.items():
-            for k in j:
-                if i == k:
-                    dict[i] = m
-                    if m['PaymentStatus'] == "Outstanding":
-                        amt = m["Price"]
-    return  jsonify(
-            {
-                "code": 200,
-                "data": dict,
-                "amt": amt
-            }       
-    )
-
-@app.route("/getpayment/<string:amt>", methods=['POST'])
-def payment(amt):
-    hopper_ref = policy_ref.child(outstandingpolicy)
-    hopper_ref.update({
-            "PaymentStatus": "Paid",
-            "PaymentDate":dateee,
-            "OutstandingAmt": '0',
-            "Status":"Active"
-    })
-    # sms()
-    make_payment()
-    return jsonify(
-        {
-            "data": amt
-        }
-    ), 201
-# paymenturl = "http://localhost:5001/make_payment"
-
-# test = invoke_http(paymenturl, json=policy1)
-# print("hi",test)
-
-# make_payment()
+# dict = {}
+# @app.route('/display/<string:customerID>')
+# def display(customerID):
+#     amt = 0
+#     getCustomerRef = db.reference("/customer/"+customerID)
+#     data1 = getCustomerRef.get()
+#     getCustPolicies = db.reference("/Policy/")
+#     custdata1 = getCustPolicies.get()
+#     for (i,m) in custdata1.items():
+#         for (e,j) in data1.items():
+#             for k in j:
+#                 if i == k:
+#                     dict[i] = m
+#                     if m['PaymentStatus'] == "Outstanding":
+#                         amt = m["Price"]
+#                         print(amt)
+#     return  jsonify(
+#             {
+#                 "code": 200,
+#                 "data": dict,
+#                 "amt": amt
+#             }       
+#     )
 
 # @app.route('/getAmount')
 # def getAmt():
@@ -155,43 +195,37 @@ def payment(amt):
 #             }
 #         )
 
-
-dict1 = {}
-@app.route('/getAmount/<string:customerID>')
-def getAmt(customerID):
-    amt = 0
-    getCustomerRef = db.reference("/customer/"+customerID + "/")
-    data1 = getCustomerRef.get()
-    getCustPolicies = db.reference("/Policy/")
-    custdata1 = getCustPolicies.get()
-    for (i,m) in custdata1.items():
-        for (e,j) in data1.items():
-                for k in j:
-                    if i == k:
-                        
-                        dict1[i] = m
-                        if m['PaymentStatus'] == "Outstanding":
-                            amt = m["Price"]
-    print(amt)
-    print(dict1)
-    return jsonify(
-            {
-                "code": 200,
-                "data": {
-                    "Amt":amt,
-                    "data":dict1,
-                    "policykey":outstandingpolicy
-                }
-            }
-        )
-
-# @app.route('/getDetails')
-# def getDetails():
-#     return  jsonify(
+# dict1 = {}
+# @app.route('/getAmount/<string:customerID>')
+# def getAmt(customerID):
+#     amt = 0
+#     outstandingpolicy = ''
+#     getCustomerRef = db.reference("/customer/"+customerID + "/")
+#     data1 = getCustomerRef.get()
+#     getCustPolicies = db.reference("/Policy/")
+#     custdata1 = getCustPolicies.get()
+#     for (i,m) in custdata1.items():
+#         for (e,j) in data1.items():
+#                 for k in j:
+#                     if i == k:
+#                         dict1[i] = m
+#                         if m['PaymentStatus'] == "Outstanding":
+#                             amt = m["Price"]
+#                             outstandingpolicy = i
+#                             print(outstandingpolicy)
+#                             print(amt)
+#     return jsonify(
 #             {
 #                 "code": 200,
-#                 "data": policy1
-#             }       
-#     )
+#                 "data": {
+#                     "Amt":amt,
+#                     "data":dict1,
+#                     "policykey":i
+#                 }
+#             }
+#         )
+
+
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='5501',debug=True)

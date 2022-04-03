@@ -216,6 +216,18 @@
                               console.log(this.message + error);
                       });
 
+                  const policyresponse =
+                      fetch("http://localhost:5001/getPolicy/" + customerID)
+                          .then(response => response.json())
+                          .then(data => {
+                              console.log(response);
+                              var status = data.data
+
+                          })
+                          .catch(error => {
+                              console.log(this.message + error);
+                      });
+
 
 
 

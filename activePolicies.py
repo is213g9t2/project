@@ -206,6 +206,17 @@ def get_details(s):
                     
             }) 
 
+@app.route("/getPolicy/<string:customerID>")
+def getpolicy(customerID):
+    ref = db.reference("/customer/" + customerID + "/ActivePolicies")
+    data = ref.get()
+    print(data)
+    return  jsonify(
+        {
+            "code": 200,
+            "data": data
+        }       
+    )
 
 
 

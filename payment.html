@@ -152,22 +152,32 @@
         console.log(customerID)
         console.log("#####################")
         const response =
-            fetch("http://localhost:5501/getAmount/"+customerID)
+            fetch("http://localhost:5501/getDetails/"+customerID)
                 .then(response => response.json())
                 .then(data => {
                     console.log(response);
-                    console.log(data.data)
-                    console.log(data.data.Amt)
-                    document.getElementById("finalamt").innerText = data.data.Amt
+                    console.log(data["amt"])
+                    document.getElementById("finalamt").innerText = data["amt"]
                 })
                 .catch(error => {
                     console.log(this.message + error);
             });
 
+        // const policyresponse =
+        //     fetch("http://localhost:5501/getDetails/"+customerID)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             console.log(response);
+        //             console.log(data.data)
+        //         })
+        //         .catch(error => {
+        //             console.log(this.message + error);
+        //     });
+
         function tryy() {
             const response =
             
-            fetch("http://localhost:5501/display/"+ customerID)
+            fetch("http://localhost:5501/getDetails/"+customerID)
                 .then(response => response.json())
                 .then(data => {
                     console.log(response);
@@ -243,12 +253,13 @@
             
             // tryy()
             // console.log(tryy())
+            var customerID = sessionStorage.getItem('customerid')
             stramt = String(amount)
             const dict = {amount}
             const s = JSON.stringify(dict)
             console.log(s)
             $.ajax({
-                url:"http://localhost:5501/getpayment/"+stramt,
+                url:"http://localhost:5501/getpayment/"+stramt+"/"+customerID,
                 type:"POST",
                 contentType: "application/json",
                 data: JSON.stringify(s)});
