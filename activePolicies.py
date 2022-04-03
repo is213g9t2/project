@@ -69,26 +69,29 @@ def get_all(unpaid):
 
 
 
-@app.route("/disable/<string:custID>")
-def disable(custID):
+@app.route("/disable/<string:customerID>")
+def disable(customerID):
     disabled = "false"
-    ref = db.reference("/customer/" + custID)
+    ref = db.reference("/customer/" + customerID)
     data = ref.get()
     # print(data)
     length = len(data)
 
     if length != 2:
 
-        ref = db.reference("/customer/" + custID + "/ActivePolicies")
+        ref = db.reference("/customer/" + customerID + "/ActivePolicies")
         data = ref.get()
+        disabled = "false"
 
         for ch in data:
-            # print(ch)
-            ref2 = db.reference("/Policy/" + ch)
+            ref2 = db.reference("/Policy")
             data2 = ref2.get()
+            # print(data2)
             for ch2 in data2:
                 if ch2 == ch:
-                    policyData = data["PaymentStatus"]
+                    ref2 = db.reference("/Policy/" + ch2)
+                    data2 = ref2.get()
+                    policyData = data2["PaymentStatus"]
                     if policyData == "Outstanding":
                         disabled = "true"
                         break     
@@ -155,25 +158,28 @@ def get_details(s):
         })
 
     else:
-
         ref = db.reference("/customer/" + customerID + "/ActivePolicies")
         data = ref.get()
-        print(data)
-
+        # print(data)
+        paid = True
         for ch in data:
-            # print(ch)
-            ref2 = db.reference("/Policy/" + ch)
+            ref2 = db.reference("/Policy")
             data2 = ref2.get()
             for ch2 in data2:
                 if ch2 == ch:
-                    policyData = data["PaymentStatus"]
+                    ref2 = db.reference("/Policy/" + ch2)
+                    data2 = ref2.get()
+                    policyData = data2["PaymentStatus"]
+                    # print(policyData)
                     if policyData == "Outstanding":
+                        # print("lol")
+                        paid = False
                         unpaid = ch
                         rabbit = unpaid
                         get_all(unpaid)
                         break
 
-        else:
+        if paid == True:
             ref = db.reference("/customer/" + customerID)
             data = ref.get()
             activePolicies = data["ActivePolicies"]
@@ -198,7 +204,7 @@ def get_details(s):
                     "OutstandingAmt": price,
                     "Status":"Pending"
                     
-            })  
+            }) 
 
 
 
@@ -206,7 +212,6 @@ def get_details(s):
 if __name__ == '__main__':
     print("This is flask for " + os.path.basename(__file__) + ": manage orders ...")
     app.run(host='0.0.0.0', port=5001, debug=True)
-
 
 
 
