@@ -200,7 +200,10 @@ def get_details(s):
                     'Price': price,
                     "OutstandingAmt": price,
                     "Status":"Pending",
-                    "phoneNumber": phoneNumber
+                    "phoneNumber": phoneNumber,
+                    "specificCountry": specificCountry,
+                    "startDate": startDate,
+                    "endDate": endDate
                     
             }) 
     return None
@@ -220,7 +223,7 @@ def getpolicy(customerID):
 
 
 if __name__ == '__main__':
-    print("This is flask for " + os.path.basename(__file__) + ": manage orders ...")
+    print("This is flask for " + os.path.basename(__file__) + ": active policies ...")
     app.run(host='0.0.0.0', port=5001, debug=True)
 
 
