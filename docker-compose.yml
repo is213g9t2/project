@@ -1,0 +1,89 @@
+version: "3.8"
+
+volumes:
+  rabbitmq_data:
+
+
+services:
+ 
+  catalog:
+    build:
+      context: ./
+      dockerfile: catalog.Dockerfile
+    image: estherweehy/catalog:project
+    restart: always
+    environment:
+      dbURL: https://esdg9t02-insurance-default-rtdb.asia-southeast1.firebasedatabase.app/
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "5502:5502"
+ 
+  #######################################################
+  # Shipping Record: The Shipping Record microservice
+  #######################################################
+  customer:
+    build:
+      context: ./
+      dockerfile: customer.Dockerfile
+    image: estherweehy/customer:project
+    restart: always
+    environment:
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "5505:5505"
+    
+
+  ####################################
+  # RabbitMQ: The messaging broker   
+  ####################################
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: project-rabbit
+    restart: always
+    ports:
+      - "5673:5673"
+      - "15673:15673"
+    volumes: 
+      - rabbitmq_data:/var/lib/rabbitmq
+      
+  #################################################
+  # Activity Log: The Activity Log microservice
+  #################################################
+  activepolicies:
+    build:
+      context: ./
+      dockerfile: activepolicies.Dockerfile
+    image: estherweehy/activepolicies:esd
+    restart: always
+    environment:
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "5001:5001"
+
+  ###################################
+  # Error: The Error microservice
+  ###################################
+  insurance:
+    build:
+      context: ./
+      dockerfile: insurance.Dockerfile
+    image: estherweehy/insurance:project
+    restart: always
+    environment:
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "5500:5500"
+
+  ###############################################
+  # Place Order: The Place Order microservice
+  ###############################################
+  payment:
+    build:
+      context: ./
+      dockerfile: payment.Dockerfile
+    image: estherweehy/payment:project
+    restart: always
+    environment:
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "5501:5501"
