@@ -200,6 +200,7 @@
                 document.getElementById("custID").innerText = customerID
 
                 const response =
+              
                       fetch("http://localhost:5001/disable/" + customerID)
                           .then(response => response.json())
                           .then(data => {
@@ -408,7 +409,7 @@
 
 
               $.ajax({
-                url:'http://localhost:5001/activePolicies/'+ s,
+                url:'http://localhost:5001/activepolicies/'+ s,
                 type:"POST",
                 contentType: "application/json",
                 data: JSON.stringify(signupdetails)

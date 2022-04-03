@@ -55,7 +55,7 @@ def make_payment(customerID):
 
             return jsonify({
                 "code": 500,
-                "message": "place_order.py internal error: " + ex_str
+                "message": "makepayment.py internal error: " + ex_str
             }), 500
 
 
@@ -64,7 +64,7 @@ def make_payment(customerID):
 
 # Execute this program if it is run as a main script (not by 'import')
 if __name__ == "__main__":
-    print("This is flask " + os.path.basename(__file__) + " for placing an order...")
+    print("This is flask " + os.path.basename(__file__) + " for making payment...")
     app.run(host="0.0.0.0", port=5500, debug=True)
     # Notes for the parameters: 
     # - debug=True will reload the program automatically if a change is detected;

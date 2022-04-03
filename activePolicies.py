@@ -6,6 +6,8 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
+from invokes import invoke_http
+
 from datetime import datetime
 import json
 
@@ -16,6 +18,7 @@ import pika
 import json
 
 from customer import customer
+# from makeOutstanding import makeOutstanding
 
 app = Flask(__name__)
 CORS(app)
@@ -30,42 +33,26 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 
 from firebase_admin import db
 
-custIDtest = ''
+outstanding_URL = "http://localhost:5560/makeOutstanding"
 
-# @app.route("/activePolicies")
+# def send_message(unpaid):
 
-def send_message(unpaid):
-    code = 404
+#     print('\n\n-----Publishing the (order error) message with routing_key=#.outstanding-----')
 
-    if code not in range(200, 300):
+#     # invoke_http(error_URL, method="POST", json=order_result)
+#     amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="#.outstanding", 
+#         body=message, properties=pika.BasicProperties(delivery_mode = 2)) 
+#     # make message persistent within the matching queues until it is received by some receiver 
+#     # (the matching queues have to exist and be durable and bound to the exchange)
 
-        # Inform nikki's rabbitmq
-        # routing key to be determined
+#     return jsonify(
+#             {
+#                 "unpaid": unpaid
+#             })
 
-        #print('\n\n-----Invoking error microservice as order fails-----')
-        print('\n\n-----Publishing the (order error) message with routing_key=#.outstanding-----')
 
-        # invoke_http(error_URL, method="POST", json=order_result)
-        amqp_setup.channel.basic_publish(exchange=amqp_setup.exchangename, routing_key="#.outstanding", 
-            body=message, properties=pika.BasicProperties(delivery_mode = 2)) 
-        # make message persistent within the matching queues until it is received by some receiver 
-        # (the matching queues have to exist and be durable and bound to the exchange)
 
-        # - reply from the invocation is not used;
-        # continue even if this invocation fails        
-        print(str(code) + message + "published to the RabbitMQ Exchange")
 
-        # 7. Return error
-        return jsonify(
-            {
-                "code": code,
-                "data": {
-                    "unpaid": unpaid
-                },
-                "message": message
-            })
-
-    return
 
 
 
@@ -76,28 +63,29 @@ def disable(customerID):
     data = ref.get()
     # print(data)
     length = len(data)
-
+    print(length)
     if length != 2:
 
         ref = db.reference("/customer/" + customerID + "/ActivePolicies")
         data = ref.get()
-        disabled = "false"
 
         for ch in data:
             ref2 = db.reference("/Policy")
             data2 = ref2.get()
             # print(data2)
+            
             for ch2 in data2:
                 if ch2 == ch:
                     ref2 = db.reference("/Policy/" + ch2)
                     data2 = ref2.get()
+                    print(data2)
                     policyData = data2["PaymentStatus"]
                     if policyData == "Outstanding":
-                        unpaid = data2
                         disabled = "true"
-                        send_message(unpaid)
-                        break     
 
+
+                        break     
+    
     return  jsonify(
         {
             "code": 200,
@@ -107,7 +95,9 @@ def disable(customerID):
 
 
 
-@app.route("/activePolicies/<string:s>", methods=['POST'])
+
+
+@app.route("/activepolicies/<string:s>", methods=['POST'])
 def get_details(s):
     signupdetails = s.split(",")
 
@@ -208,6 +198,7 @@ def get_details(s):
                     "phoneNumber": phoneNumber
                     
             }) 
+    return None
 
 @app.route("/getPolicy/<string:customerID>")
 def getpolicy(customerID):
