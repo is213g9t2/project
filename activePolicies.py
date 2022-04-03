@@ -34,7 +34,7 @@ custIDtest = ''
 
 # @app.route("/activePolicies")
 
-def get_all(unpaid):
+def send_message(unpaid):
     code = 404
 
     if code not in range(200, 300):
@@ -93,7 +93,9 @@ def disable(customerID):
                     data2 = ref2.get()
                     policyData = data2["PaymentStatus"]
                     if policyData == "Outstanding":
+                        unpaid = data2
                         disabled = "true"
+                        send_message(unpaid)
                         break     
 
     return  jsonify(
@@ -117,19 +119,21 @@ def get_details(s):
     import datetime
     x = datetime.datetime.now().date()
     x = x.strftime("%m-%d-%Y")
-    
-    catalogID = signupdetails[1]
 
     customerID = signupdetails[0]
     # customerID = "123"
     
-    startDate = signupdetails[3]
+    catalogID = signupdetails[1]
+    
+    phoneNumber = signupdetails[3]
+
+
 
     ref = db.reference("/Catalog/" + catalogID)
     data = ref.get()
     price = data["price"][1:]
 
-    policyID = customerID + catalogID + startDate
+    policyID = customerID + catalogID + x
 
     ref = db.reference("/customer/" + customerID)
     data = ref.get()
@@ -154,7 +158,8 @@ def get_details(s):
                 'PaymentStatus': 'Outstanding',
                 'Price': price,
                 "OutstandingAmt": price,
-                "Status":"Pending"
+                "Status":"Pending",
+                "phoneNumber": phoneNumber
         })
 
     else:
@@ -174,9 +179,6 @@ def get_details(s):
                     if policyData == "Outstanding":
                         # print("lol")
                         paid = False
-                        unpaid = ch
-                        rabbit = unpaid
-                        get_all(unpaid)
                         break
 
         if paid == True:
@@ -202,10 +204,22 @@ def get_details(s):
                     'PaymentStatus': 'Outstanding',
                     'Price': price,
                     "OutstandingAmt": price,
-                    "Status":"Pending"
+                    "Status":"Pending",
+                    "phoneNumber": phoneNumber
                     
             }) 
 
+@app.route("/getPolicy/<string:customerID>")
+def getpolicy(customerID):
+    ref = db.reference("/customer/" + customerID + "/ActivePolicies")
+    data = ref.get()
+    print(data)
+    return  jsonify(
+        {
+            "code": 200,
+            "data": data
+        }       
+    )
 
 
 
