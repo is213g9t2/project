@@ -1,10 +1,11 @@
 from __future__ import print_function
 
 import os.path
+from flask import redirect
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
+from google_auth_oauthlib.flow import InstalledAppFlow, Flow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -43,6 +44,7 @@ def create_message(sender, to, subject, message_text):
     mimeMessage.attach(MIMEText(message_text, 'plain'))
     return base64.urlsafe_b64encode(mimeMessage.as_bytes() ).decode()
 
+emailObject = create_message("esdg9t02@gmail.com", "hengweishin@gmail.com", "testing email subject", "hello world content")
 
 def main(EmailObject):
     """Sends out the email object
@@ -64,6 +66,7 @@ def main(EmailObject):
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
+        # authorization_url, state = flow.authorization_url(access_type='offline',include_granted_scopes='true')
 
     try:
         # Call the Gmail API
@@ -79,6 +82,6 @@ def main(EmailObject):
 
 
 if __name__ == '__main__':
-    main()
+    main(emailObject)
 
 

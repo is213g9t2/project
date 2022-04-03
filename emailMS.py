@@ -30,6 +30,13 @@ def getCustomerDeets(customerid):
 
     return custdeets
 
+def getPolicyDeets(policykey):
+
+    policy_ref = "/Policy/" + policykey
+    policydeets = db.reference(policy_ref).get()
+
+    return policydeets
+
 ## MONITOR BINDING KEY
 monitorBindingKey = '#.invoice'
 
@@ -50,20 +57,33 @@ def receiveEmailRequest():
 def callback(channel, method, properties, body):
     print("\nReceived an email request by " + __file__)
     print("hello")
-    print(json.loads(body))
+
     processEmailRequest(json.loads(body))
 
     print()  # print a new line feed
 
+    
+
 
 def processEmailRequest(EmailReq):
     print("Recording an email request:")
-
-    custdeets = getCustomerDeets(EmailReq["custID"])
+    print(EmailReq)
+    print()
     
+    custdeets = getCustomerDeets(EmailReq["customerID"])
+    print(custdeets)
+    print()
+
+    policydeets = getPolicyDeets(EmailReq["policykey"])
+    print(policydeets)
+    print()
+
+    message_text = "Hello " + custdeets["customername"] + "!" + "\n\nThis email is to confirm that we have received your payment of $" + policydeets["Price"]+ " for the Insurance Policy " + policydeets["CatalogID"] + " on " + policydeets["PaymentDate"] + ". \n\nThank you for your purchase!"
+
+
 
     # emailObject = create_message("esdg9t02@gmail.com", custdeets.customeremail, EmailReq.subject, EmailReq.message)
-    emailObject = create_message("esdg9t02@gmail.com", custdeets["customeremail"], EmailReq["policy"], "hello content")
+    emailObject = create_message("esdg9t02@gmail.com", custdeets["customeremail"], "Payment Received for [" + policydeets["CatalogID"] + "]", message_text)
     ## emailObject = create_message("esdg9t02@gmail.com", "hengweishin@gmail.com", "testing email subject", "hello world content")
 
     status = main(emailObject)
@@ -79,47 +99,43 @@ if __name__ == "__main__":
     receiveEmailRequest()
 
 
-# EmailReq = {
-#     "custID": "123",
-#     "policy": "123Africa0104-02-2022" 
-# }
-# processEmailRequest(EmailReq)
-
 # {
+#     "amt":"40",
 #     "code":200,
 #     "data":{
-#         "Amt":0,
-#         "details":{
-#             "123Africa0104-02-2022":{
-#                 "CatalogID":"Africa01",
-#                 "CustID":"123",
-#                 "OutstandingAmt":"50.00",
-#                 "PaymentDate":"04-02-2022",
-#                 "PaymentStatus":"Outstanding",
-#                 "Price":"50.00",
-#                 "PurchaseDate":"04-02-2022",
-#                 "Status":"Active"
-#             },
-#             "123America0104-02-2022":{
-#                 "CatalogID":"America01",
-#                 "CustID":"123",
-#                 "OutstandingAmt":"0",
-#                 "PaymentDate":"03-01-2020",
-#                 "PaymentStatus":"Paid",
-#                 "Price":"100.00",
-#                 "PurchaseDate":"04-02-2022",
-#                 "Status":"Active"
-#             },
-#             "123Europe0104-02-2022":{
-#                 "CatalogID":"Europe01",
-#                 "CustID":"123",
-#                 "OutstandingAmt":0,
-#                 "PaymentDate":"04-02-2022",
-#                 "PaymentStatus":"Paid",
-#                 "Price":"100.00",
-#                 "PurchaseDate":"04-02-2022",
-#                 "Status":"Active"
-#             }
+#         "113538498334279602821Africa0104-04-2022":{
+#             "CatalogID":"Africa01",
+#             "CustID":"113538498334279602821",
+#             "OutstandingAmt":"0",
+#             "PaymentDate":"04-04-2022",
+#             "PaymentStatus":"Paid",
+#             "Price":"100",
+#             "PurchaseDate":"04-04-2022",
+#             "Status":"Active",
+#             "phoneNumber":"2022-04-04"
+#         },
+#         "113538498334279602821Asia0104-04-2022":{
+#             "CatalogID":"Asia01",
+#             "CustID":"113538498334279602821",
+#             "OutstandingAmt":"0",
+#             "PaymentDate":"04-04-2022",
+#             "PaymentStatus":"Paid",
+#             "Price":"20",
+#             "PurchaseDate":"04-04-2022",
+#             "Status":"Active",
+#             "phoneNumber":"2022-04-04"
+#         },
+#         "113538498334279602821Europe0104-04-2022":{
+#             "CatalogID":"Europe01",
+#             "CustID":"113538498334279602821",
+#             "OutstandingAmt":"40",
+#             "PaymentDate":"-",
+#             "PaymentStatus":"Outstanding",
+#             "Price":"40",
+#             "PurchaseDate":"04-04-2022",
+#             "Status":"Pending",
+#             "phoneNumber":"2022-04-04"
 #         }
-#     }
+#     },
+#     "policykey":"113538498334279602821Europe0104-04-2022"
 # }
