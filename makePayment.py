@@ -29,7 +29,11 @@ def make_payment(customerID):
     #     data = json.load(json_file)
     #     print(data)
     
+<<<<<<< Updated upstream
         getpayment_URL = "http://localhost:5501/getDetails/"+customerID
+=======
+        getpayment_URL = "http://localhost:5501/getAmount/"+customerID
+>>>>>>> Stashed changes
         response = requests.get(getpayment_URL)
         json_data = response.json()
         r = json.dumps(json_data)
