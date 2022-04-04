@@ -75,7 +75,7 @@
 
 </head>
 
-<script type="module">
+<!-- <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
   // TODO: Add SDKs for Firebase products that you want to use
@@ -95,10 +95,10 @@
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
 
-  import { GoogleAuthProvider } from "firebase/auth";
+  // import { GoogleAuthProvider } from "firebase/auth";
 
-  const provider = new GoogleAuthProvider();
-</script>
+  // const provider = new GoogleAuthProvider();
+</script> -->
 
 <body onload="putInput()">
 
@@ -117,9 +117,9 @@
         </ul>
 
         <div class="text-end text-white">
-            <span>Hello, </span>
-            <span id="customername" ></span>
-            <span id="custID" hidden></span>
+          <span id="customername" class="mx-3"></span>
+          <span id="custID" hidden></span>
+          <button type="button" class="btn btn-warning btn-sm" onclick="logout()">Log Out</button>
         </div>
 
         <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -142,8 +142,8 @@
           <h1 class="fw-light">Travel Assured</h1>
           <p class="lead text-muted">Travel more. Travel safe. <br>
             Get insured in just a few clicks!
-            </p>
-          
+          </p>
+
           <!-- <p>
             <a href="#" class="btn btn-primary my-2">Main call to action</a>
             <a href="#" class="btn btn-secondary my-2">Secondary action</a>
@@ -206,8 +206,12 @@
         var customername = sessionStorage.getItem('customername')
         // console.log(customerID) -- success
         document.getElementById("custID").innerText = customerID
-        document.getElementById("customername").innerText = customername
+        document.getElementById("customername").innerText = "Hello, " + customername
 
+        if (customerID == null) {
+          window.location.href = "signin.html"
+        }
+        
         const response =
 
           fetch("http://localhost:5001/disable/" + customerID)
@@ -428,6 +432,24 @@
 
       }
 
+      // function logout() {
+      //   sessionStorage.clear()
+      //   // window.location = "signin.html"
+
+      //   window.location.href = "https://www.google.com/accounts/Logout?continue=https://appengine.google.com/_ah/logout?continue=http://localhost/is213/project/signin.html";
+      // }
+
+      function logout() {
+        sessionStorage.clear()
+
+        var newWindow = window.open('https://google.com/accounts/Logout', 'Disconnect from Google', 'width=500,height=400,menubar=no,status=no,location=no,toolbar=no,scrollbars=no,top=200,left=200');
+        setTimeout(function () {
+          if (newWindow) newWindow.close();
+          var url = "signin.html"
+          window.open(url, '_top')
+        }, 100);
+
+      }
 
     </script>
 
