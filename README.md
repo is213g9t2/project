@@ -127,5 +127,12 @@ An invoice will be automatically sent to the gmail account associated with the u
 **insert screenshot**
 
 
+# 4. Sign Out
+
+## Click "Log Out" Button
+"Log Out" button is available on both Home and Policies page. Upon clicking, users will be signed out from their Google account, and redirected back to the Sign In page
+
+**insert screenshot**
+
 
 
