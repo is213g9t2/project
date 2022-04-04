@@ -97,6 +97,7 @@ If there is an outstanding payment, our business disallows users from browsing a
 ### SMS Alert for Outstanding Payments
 
 An SMS alert will be sent to users to remind them to make payment for oustanding policies
+** At the moment, only registered mobile numbers of the Team Members are able to receive SMS notification.
 
 ![IMAGE 2022-04-05 01:12:01](https://user-images.githubusercontent.com/89062429/161596465-0523a6fe-8738-4e2d-8165-460b6b9a6fcd.jpg)
 
