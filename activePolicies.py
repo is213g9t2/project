@@ -16,7 +16,6 @@ import requests
 import amqp_setup
 import pika
 import json
-
 from customer import customer
 # from makeOutstanding import makeOutstanding
 
