@@ -21,12 +21,22 @@ We aim to offer customers the comfort of having an agent assigned to them, follo
 
 ## User Scenario Diagrams
 
-**to be inserted**
+### User Scenario 1: Customer Signs In for Account
+<img width="720" alt="1" src="https://user-images.githubusercontent.com/89062429/161619717-1090a21a-ea4b-4b99-853a-b6cb6e8a43f6.png">
+
+### User Scenario 2A: No Outstanding Payment; Sign Up for Insurance
+<img width="720" alt="2a" src="https://user-images.githubusercontent.com/89062429/161619745-96edbd08-c8ab-4333-b167-275d2f75820e.png">
+
+### User Scenario 2B: Have Outstanding Payment
+<img width="720" alt="2b" src="https://user-images.githubusercontent.com/89062429/161619754-56720fc7-c96c-4a19-b1d1-dd37336ef126.png">
+
+### User Scenario 3: Customer Makes Payment
+<img width="720" alt="3" src="https://user-images.githubusercontent.com/89062429/161619758-8df19eca-210c-4080-ab29-9367cafcd636.png">
 
 ## Technical Overview Diagrams
-
-**to be inserted**
-
+<img width="720" alt="to1" src="https://user-images.githubusercontent.com/89062429/161620083-f88cfb5c-503c-4cf3-99af-8b6b8373fda7.png">
+<img width="720" alt="to2" src="https://user-images.githubusercontent.com/89062429/161620098-446b8e20-06e2-4673-8b47-3f0ef6b8ac6d.png">
+<img width="720" alt="to3" src="https://user-images.githubusercontent.com/89062429/161620105-40854275-ee2d-4931-af3f-ef52b4f9f13d.png">
 
 # 1. Install Dependencies
 
@@ -75,9 +85,9 @@ If you list the images with `docker image ls`, you will see that the required im
 
 ## 3.1) Sign In Page (signin.html)
 
-Sign in via Google on the Sign In Page (_/signin.html_) 
+Sign in via Google on the Sign In Page (_signin.html_) 
 
-<img width="1727" alt="Screenshot 2022-04-04 at 11 48 50 PM" src="https://user-images.githubusercontent.com/89062429/161582543-160ff7ee-bfac-4bdf-9803-bc24b8ee94ea.png">
+<img width="720" alt="Screenshot 2022-04-04 at 11 48 50 PM" src="https://user-images.githubusercontent.com/89062429/161582543-160ff7ee-bfac-4bdf-9803-bc24b8ee94ea.png">
 
 Users will be automatically redirected to the _signin.html_ page if the browser does not detect Customer ID - i.e the user's unique Google ID
 
@@ -85,14 +95,14 @@ Users will be automatically redirected to the _signin.html_ page if the browser 
 
 Upon successful login via Google, users will be automatically redirected to _index.html_ which will showcase the policies catalog available for purchase
 
-<img width="1726" alt="Screenshot 2022-04-05 at 12 43 11 AM" src="https://user-images.githubusercontent.com/89062429/161593618-073dc26a-409a-42b0-9136-a6e3534abaf4.png">
+<img width="720" alt="Screenshot 2022-04-05 at 12 43 11 AM" src="https://user-images.githubusercontent.com/89062429/161593618-073dc26a-409a-42b0-9136-a6e3534abaf4.png">
 
 
 ## 3.2b) Home Page - ERROR HANDLING for Outstanding Payments
 
 If there is an outstanding payment, our business disallows users from browsing and purchasing new policies. A pop-up will appear, and users will be redirected to _payment.html_ to make payment first. [(See Section 3.4)](#makepayment)
 
-<img width="1364" alt="Screenshot 2022-04-05 at 12 51 09 AM" src="https://user-images.githubusercontent.com/89062429/161593663-f0746d2f-484f-42ac-83a4-cf9d6082ecfd.png">
+<img width="720" alt="Screenshot 2022-04-05 at 12 51 09 AM" src="https://user-images.githubusercontent.com/89062429/161593663-f0746d2f-484f-42ac-83a4-cf9d6082ecfd.png">
 
 ### SMS Alert for Outstanding Payments
 
@@ -113,20 +123,18 @@ Click on the Sign Up! button of the desired Region
 ### Fill Details
 Fill up the required details such as Specific Country and Start/End Date
 
-<img width="1362" alt="Screenshot 2022-04-05 at 12 44 14 AM" src="https://user-images.githubusercontent.com/89062429/161593805-4444ef0a-14d7-4e42-adc4-802581a6c96a.png">
+<img width="720" alt="Screenshot 2022-04-05 at 12 44 14 AM" src="https://user-images.githubusercontent.com/89062429/161593805-4444ef0a-14d7-4e42-adc4-802581a6c96a.png">
 
 Select sign up button to confirm sign up of policy. Users will be redirected to the _payment.html_ page to make payment for their purchased policy.
 
-
+<a name="makepayment"></a>
 ## 3.4) My Policies Page (payment.html)
 
 ### View Policies
 Users can view a list of active policies here. 
 
-<img width="1726" alt="Screenshot 2022-04-05 at 12 52 18 AM" src="https://user-images.githubusercontent.com/89062429/161595761-d5b08bb7-8d47-4064-b2b9-132a56da849e.png">
+<img width="720" alt="Screenshot 2022-04-05 at 12 52 18 AM" src="https://user-images.githubusercontent.com/89062429/161595761-d5b08bb7-8d47-4064-b2b9-132a56da849e.png">
 
-
-<a name="makepayment"></a>
 ### Make Payment
 PayPal button will appear if there is an outstanding payment to be made. Since business logic disables new signups if there are outstanding payments, users will only make payment for the latest policy that they have purchased (1-1 relationship for Payment-Policy).
 
@@ -144,13 +152,13 @@ Password: 123456WAD
 
 Upon successful payment via PayPal, page will refresh and indicate payment status as "Paid". Users will be able to browse and purchase new policies.
 
-<img width="1335" alt="Screenshot 2022-04-05 at 12 59 42 AM" src="https://user-images.githubusercontent.com/89062429/161594487-c5562b38-4147-4966-9679-6fe5d7cea2a0.png">
+<img width="720" alt="Screenshot 2022-04-05 at 12 59 42 AM" src="https://user-images.githubusercontent.com/89062429/161594487-c5562b38-4147-4966-9679-6fe5d7cea2a0.png">
 
 ### Receive Invoice via Email
 
 An invoice will be automatically sent to the gmail account associated with the user's Google Login details.
 
-<img width="1123" alt="Screenshot 2022-04-05 at 1 06 21 AM" src="https://user-images.githubusercontent.com/89062429/161595511-b1d1575b-369f-43e2-8882-489b09ce2ccb.png">
+<img width="720" alt="Screenshot 2022-04-05 at 1 06 21 AM" src="https://user-images.githubusercontent.com/89062429/161595511-b1d1575b-369f-43e2-8882-489b09ce2ccb.png">
 
 
 # 4. Sign Out
