@@ -355,63 +355,6 @@
 
               document.getElementById('comehere').innerHTML = str
 
-<<<<<<< HEAD
-            function signup(region) {
-
-              //get date
-              // var year = (new Date()).getFullYear();
-              // var month = (new Date()).getMonth() +1;
-              // var formattedmonth = ("0" + month).slice(-2);
-              // var day = (new Date()).getDate();
-              // var formattedday = ("0" + day).slice(-2);
-              // var date = year+'-'+formattedmonth+'-'+formattedday
-
-
-              //get customer ID
-              // var profile = googleUser.getBasicProfile();
-              // console.log(profile)
-              // const customer_ID = profile.getId();
-              // console.log(customer_ID)
-
-              // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-              
-              console.log(date)
-              console.log(region)
-
-              let signupdetails = ({
-                // gets customerid from signin.html
-                //'Username': localStorage.getItem('customerid'),
-                'Username': document.getElementById('customerID').value,
-                'Region': String(region),
-                'Specific Country': document.getElementById(region+'specific_country').value,
-                'Phone Number': document.getElementById(region+'phone_no').value,
-                'Start Date': document.getElementById(region+'startTrip').value,
-                'End Date': document.getElementById(region+'endTrip').value,
-                'Current Date': date
-              })
-
-              strtest = String(signupdetails)
-              // const dict = {strtest}
-              // const json = JSON.stringify(dict)
-              console.log(signupdetails)
-              s = signupdetails['Username'] + "," + signupdetails['Region'] + "," + signupdetails['Specific Country'] + "," + signupdetails['Start Date'] + "," +  signupdetails['End Date']
-
-
-              $.ajax({
-                url:'http://localhost:5001/activePolicies/'+ s,
-                type:"POST",
-                contentType: "application/json",
-                data: JSON.stringify(signupdetails)
-              });
-
-              window.location = 'payment.html';
-
-              
-
-              
-            
-=======
->>>>>>> 3a1f568a838b88e8fc6e23db4958dd95f5751c20
             }
 
           }

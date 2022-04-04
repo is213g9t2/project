@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
     "customer": {
         "213": {
@@ -32,34 +31,4 @@
             "ActivePolicies": []
         }
     }
-=======
-{
-    "customer": {
-        "213": {
-            "FullName": "Apple",
-            "Email": "appletan@gmal.com",
-            "ActivePolicies": []
-        },
-        "312": {
-            "FullName": "Brett",
-            "Email": "brettlim@gmail.com",
-            "ActivePolicies": []
-        },
-        "123": {
-            "Email": "rachelgan@gmal.com",
-            "FullName": "Rachel",
-            "ActivePolicies": []
-        },
-        "113538498334279602821": {
-            "FullName": "ESDG9 Group2",
-            "Email": "esdg9t02@gmail.com",
-            "ActivePolicies": []
-        },
-        "117363566550712178969": {
-            "FullName": "dbtt g5t07",
-            "Email": "dbttg5t07@gmail.com",
-            "ActivePolicies": []
-        }
-    }
->>>>>>> 3a1f568a838b88e8fc6e23db4958dd95f5751c20
 }
