@@ -61,3 +61,71 @@ docker-compose up -d
 If you list the images with `docker image ls`, you will see that the required images have been built for the containers
 
 
+# 3. Using the Web Application
+
+## 3.1) Sign In Page (signin.html)
+
+Sign in via Google on the Sign In Page (_/signin.html_) 
+
+**insert screenshot**
+
+Users will be automatically redirected to the _signin.html_ page if the browser does not detect Customer ID - i.e the user's unique Google ID
+
+## 3.2a) Home Page - New User / No Outstanding Payments (index.html)
+
+Upon successful login via Google, users will be automatically redirected to _index.html_ which will showcase the policies catalog available for purchase
+
+**insert screenshot**
+
+## 3.2b) Home Page - ERROR HANDLING for Outstanding Payments
+
+If there is an outstanding payment, our business disallows users from browsing and purchasing new policies. A pop-up will appear, and users will be redirected to _payment.html_ to make payment first. [(See Section 3.4)](#makepayment)
+
+**insert screenshot**
+
+
+## 3.3) Purchase a New Policy
+
+### Click Sign Up
+Click on the Sign Up button of the desired Region.
+
+**insert screenshot**
+
+### Fill Details
+Fill up the required details such as Specific Country and Start/End Date
+
+**insert screenshot**
+
+### Confirm Sign Up
+Select sign up button to confirm sign up of policy. Users will be redirected to the _payment.html_ page to make payment for their purchased policy.
+
+**insert screenshot**
+
+
+## 3.4) My Policies Page (payment.html)
+
+### View Policies
+Users can view a list of active policies here. 
+
+**insert screenshot**
+
+<a name="makepayment"></a>
+### Make Payment
+PayPal button will appear if there is an outstanding payment to be made. Since business logic disables new signups if there are outstanding payments, users will only make payment for the latest policy that they have purchased (1-1 relationship for Payment-Policy).
+
+**insert screenshot**
+
+
+Upon successful payment via PayPal, page will refresh and indicate payment status as "Paid". Users will be able to browse and purchase new policies.
+
+**insert screenshot**
+
+### Receive Invoice
+
+An invoice will be automatically sent to the gmail account associated with the user's Google Login details.
+
+**insert screenshot**
+
+
+
+
