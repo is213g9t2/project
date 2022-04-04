@@ -143,6 +143,8 @@
       let customer_ID = profile.getId();
       // passes customerid to index.html
       sessionStorage.setItem("customerid", customer_ID)
+      sessionStorage.setItem("customername", profile.getName())
+      sessionStorage.setItem("customeremail", profile.getEmail())
       // console.log(typeof customer_ID)
       let fullName = profile.getName();
       // console.log(typeof fullName)

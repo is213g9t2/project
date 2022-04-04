@@ -95,7 +95,8 @@ def getDetails(customerID):
                 "code": 200,
                 "data": dict,
                 "amt":amt,
-                "policykey": outstandingpolicy
+                "policykey": outstandingpolicy,
+                "customerID": customerID
             }       
     )
 # amt = 0

@@ -16,7 +16,6 @@ import requests
 # import amqp_setup
 import pika
 import json
-
 from customer import customer
 # from makeOutstanding import makeOutstanding
 
@@ -115,9 +114,11 @@ def get_details(s):
     
     catalogID = signupdetails[1]
     
-    phoneNumber = signupdetails[3]
+    phoneNumber = signupdetails[2]
 
-
+    specificCountry = signupdetails[3]
+    startDate = signupdetails[4]
+    endDate = signupdetails[5]
 
     ref = db.reference("/Catalog/" + catalogID)
     data = ref.get()
@@ -149,7 +150,10 @@ def get_details(s):
                 'Price': price,
                 "OutstandingAmt": price,
                 "Status":"Pending",
-                "phoneNumber": phoneNumber
+                "phoneNumber": phoneNumber,
+                "specificCountry": specificCountry,
+                "startDate": startDate,
+                "endDate": endDate
         })
 
     else:
@@ -195,7 +199,10 @@ def get_details(s):
                     'Price': price,
                     "OutstandingAmt": price,
                     "Status":"Pending",
-                    "phoneNumber": phoneNumber
+                    "phoneNumber": phoneNumber,
+                    "specificCountry": specificCountry,
+                    "startDate": startDate,
+                    "endDate": endDate
                     
             }) 
     return None
@@ -215,7 +222,7 @@ def getpolicy(customerID):
 
 
 if __name__ == '__main__':
-    print("This is flask for " + os.path.basename(__file__) + ": manage orders ...")
+    print("This is flask for " + os.path.basename(__file__) + ": active policies ...")
     app.run(host='0.0.0.0', port=5001, debug=True)
 
 
