@@ -13,17 +13,18 @@
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/album/">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    
+
   <!-- Bootstrap core CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
   <!-- GOOGLE SIGN IN -->
-  <meta name="google-signin-client_id" content="212495606374-bd7o14od4050kbold0usvmdt4r9fcibt.apps.googleusercontent.com">
-  
+  <meta name="google-signin-client_id"
+    content="212495606374-bd7o14od4050kbold0usvmdt4r9fcibt.apps.googleusercontent.com">
+
 
 
   <style>
@@ -48,10 +49,11 @@
     }
 
     /* STYLING FOR POP UP FORM */
-    
+
     .form-div {
       text-transform: uppercase;
     }
+
     .field_class {
       width: 100%;
       border-radius: 6px;
@@ -65,9 +67,6 @@
       font-size: 0.9rem;
       letter-spacing: 1px;
     }
-
-
-
   </style>
 
   <!-- VUE CDN -->
@@ -101,7 +100,7 @@
   const provider = new GoogleAuthProvider();
 </script>
 
-<body onload = "putInput()">
+<body onload="putInput()">
 
   <header class="p-3 bg-dark text-white">
     <div class="container">
@@ -117,9 +116,15 @@
 
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <div class="text-end text-white">
+            <span>Hello, </span>
+            <span id="customername" ></span>
+            <span id="custID" hidden></span>
+        </div>
+
+        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
           <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-        </form>
+        </form> -->
 
         <!-- <div class="text-end">
           <button type="button" class="btn btn-outline-light me-2">Login</button>
@@ -135,10 +140,10 @@
       <div class="row py-lg-2">
         <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="fw-light">Travel Assured</h1>
-          <p class="lead text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem aperiam
-            quis deserunt dignissimos ipsa corrupti veritatis quo pariatur. Fuga consequuntur quaerat assumenda at
-            sapiente sunt explicabo consectetur eaque tempore expedita.</p>
-            <span id="custID"></span>
+          <p class="lead text-muted">Travel more. Travel safe. <br>
+            Get insured in just a few clicks!
+            </p>
+          
           <!-- <p>
             <a href="#" class="btn btn-primary my-2">Main call to action</a>
             <a href="#" class="btn btn-secondary my-2">Secondary action</a>
@@ -169,105 +174,110 @@
       </div>
     </div>
 
-          <script>
-            //get date
-            var year = (new Date()).getFullYear();
-            var month = (new Date()).getMonth() +1;
-            var formattedmonth = ("0" + month).slice(-2);
-            var day = (new Date()).getDate();
-            var formattedday = ("0" + day).slice(-2);
-            const date = year+'-'+formattedmonth+'-'+formattedday;
+    <script>
+      //get date
+      var year = (new Date()).getFullYear();
+      var month = (new Date()).getMonth() + 1;
+      var formattedmonth = ("0" + month).slice(-2);
+      var day = (new Date()).getDate();
+      var formattedday = ("0" + day).slice(-2);
+      const date = year + '-' + formattedmonth + '-' + formattedday;
 
-            const customerID = sessionStorage.getItem('customerid')
-
-
-            // Helper function to display error message
-            // function showError(message) {
-            // // Hide the table and button in the event of error
-            // $('#comehere').hide();
-            // // $('#addBookBtn').hide();
-    
-            // // Display an error under the main container
-            // $('#main-container')
-            //     .append("<label>"+message+"</label>");
-            // }
-
-            let x = ''
-
-            function putInput() {
-                var customerID = sessionStorage.getItem('customerid')
-                // console.log(customerID) -- success
-                document.getElementById("custID").innerText = customerID
-
-                const response =
-                      fetch("http://localhost:5001/disable/" + customerID)
-                          .then(response => response.json())
-                          .then(data => {
-                              console.log(response);
-                              var status = data.data
-                              if (status == "true"){
-                                console.log("lol")
-                                document.getElementById("comehere").style.display = "none"
-                                alert("There are outstanding payments!")
-                                window.location = 'payment.html';
-                              }
-
-                          })
-                          .catch(error => {
-                              console.log(this.message + error);
-                      });
-
-                  const policyresponse =
-                      fetch("http://localhost:5001/getPolicy/" + customerID)
-                          .then(response => response.json())
-                          .then(data => {
-                              console.log(response);
-                              var status = data.data
-
-                          })
-                          .catch(error => {
-                              console.log(this.message + error);
-                      });
+      const customerID = sessionStorage.getItem('customerid')
+      const customername = sessionStorage.getItem('customername')
+      const customeremail = sessionStorage.getItem('customeremail')
 
 
+      // Helper function to display error message
+      // function showError(message) {
+      // // Hide the table and button in the event of error
+      // $('#comehere').hide();
+      // // $('#addBookBtn').hide();
 
+      // // Display an error under the main container
+      // $('#main-container')
+      //     .append("<label>"+message+"</label>");
+      // }
 
+      let x = ''
 
-                      
+      function putInput() {
+        var customerID = sessionStorage.getItem('customerid')
+        var customername = sessionStorage.getItem('customername')
+        // console.log(customerID) -- success
+        document.getElementById("custID").innerText = customerID
+        document.getElementById("customername").innerText = customername
+
+        const response =
+
+          fetch("http://localhost:5001/disable/" + customerID)
+            .then(response => response.json())
+            .then(data => {
+              console.log(response);
+              var status = data.data
+              if (status == "true") {
+                console.log("lol")
+                document.getElementById("comehere").style.display = "none"
+                alert("There are outstanding payments!")
+                window.location = 'payment.html';
               }
 
+            })
+            .catch(error => {
+              console.log(this.message + error);
+            });
 
-            $(async() => {           
-            var serviceURL = "http://localhost:5502/catalog";
-            
-    
-            try {
-                const response =
-                 await fetch(
-                   serviceURL, { method: 'GET' }
+        const policyresponse =
+          fetch("http://localhost:5001/getPolicy/" + customerID)
+            .then(response => response.json())
+            .then(data => {
+              console.log(response);
+              var status = data.data
 
-                );
+            })
+            .catch(error => {
+              console.log(this.message + error);
+            });
 
-          
-                const result = await response.json();
-                 if (response.status === 200) {
-                    // success case
-                    
-                    // console.log(result["catalog"])
-                    str = ""
-                          
-            
-                    for (country in result) {
-                      // lists all countries and their details
-                      console.log(result[country])
-                    var countries = result[country]
-                    for (each_country in countries){
-                      // print country
-                      console.log(each_country)
-                      //print country's details
-                      console.log(countries[each_country])
-                      
-                      str += `
+
+
+
+
+
+      }
+
+
+      $(async () => {
+        var serviceURL = "http://localhost:5502/catalog";
+
+
+        try {
+          const response =
+            await fetch(
+              serviceURL, { method: 'GET' }
+
+            );
+
+
+          const result = await response.json();
+          if (response.status === 200) {
+            // success case
+
+            // console.log(result["catalog"])
+            str = ""
+
+
+            for (country in result) {
+              // lists all countries and their details
+              console.log(result[country])
+              var countries = result[country]
+              for (each_country in countries) {
+                // print country
+                console.log(each_country)
+                //print country's details
+                console.log(countries[each_country])
+
+                str += `
                         <div class="col">
                           <div class="card shadow-sm h-100">
                               <img class="card-img-top" src="${countries[each_country]['image']}">
@@ -285,10 +295,10 @@
                           </div>
                         </div>
                         `
-                        + 
-          
-                        // POPUP MODAL FORM
-                        `
+                  +
+
+                  // POPUP MODAL FORM
+                  `
                         <div class="modal fade" id="signupModal${each_country}" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
@@ -340,32 +350,12 @@
                         </div>
 
                         `
-                    }
-
-                    
-                    document.getElementById('comehere').innerHTML = str
-
-                  }
-                  
-                  }
-                    //  else if (response.status == 404) {
-                    //     // No policies available
-                    //     showError(result.message);
-                    // } else {
-                    //     // unexpected outcome, throw the error
-                    //     throw response.status;
-                    // }
-                }catch (error) {
-                    // Errors when calling the service; such as network error, 
-                    // service offline, etc
-                    // showError
-                    ('There is a problem retrieving policy data, please try again later.<br />' + error);
-                } // error
-
-            });
+              }
 
 
+              document.getElementById('comehere').innerHTML = str
 
+<<<<<<< HEAD
             function signup(region) {
 
               //get date
@@ -420,21 +410,89 @@
 
               
             
+=======
+>>>>>>> 3a1f568a838b88e8fc6e23db4958dd95f5751c20
             }
-            
-        
-          </script>
+
+          }
+          //  else if (response.status == 404) {
+          //     // No policies available
+          //     showError(result.message);
+          // } else {
+          //     // unexpected outcome, throw the error
+          //     throw response.status;
+          // }
+        } catch (error) {
+          // Errors when calling the service; such as network error, 
+          // service offline, etc
+          // showError
+          ('There is a problem retrieving policy data, please try again later.<br />' + error);
+        } // error
+
+      });
+
+
+
+      function signup(region) {
+
+        //get date
+        // var year = (new Date()).getFullYear();
+        // var month = (new Date()).getMonth() +1;
+        // var formattedmonth = ("0" + month).slice(-2);
+        // var day = (new Date()).getDate();
+        // var formattedday = ("0" + day).slice(-2);
+        // var date = year+'-'+formattedmonth+'-'+formattedday
+
+
+        //get customer ID
+        // var profile = googleUser.getBasicProfile();
+        // console.log(profile)
+        // const customer_ID = profile.getId();
+        // console.log(customer_ID)
+
+        // console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+
+        console.log(date)
+        console.log(region)
+
+        let signupdetails = ({
+          // gets customerid from signin.html
+          //'Username': localStorage.getItem('customerid'),
+          'Username': document.getElementById('customerID').value,
+          'Region': String(region),
+          'Specific Country': document.getElementById(region + 'specific_country').value,
+          'Phone Number': document.getElementById(region + 'phone_no').value,
+          'Start Date': document.getElementById(region + 'startTrip').value,
+          'End Date': document.getElementById(region + 'endTrip').value,
+          'Current Date': date
+        })
+
+        strtest = String(signupdetails)
+        // const dict = {strtest}
+        // const json = JSON.stringify(dict)
+        console.log(signupdetails)
+        s = signupdetails['Username'] + "," + signupdetails['Region'] + "," + signupdetails['Phone Number'] + "," + signupdetails['Specific Country'] + "," + signupdetails['Start Date'] + "," + signupdetails['End Date']
+
+
+        $.ajax({
+          url: 'http://localhost:5001/activepolicies/' + s,
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(signupdetails)
+        });
+
+        window.location = 'payment.html';
+
+      }
+
+
+    </script>
 
   </main>
 
   <footer class="text-muted py-5">
-    <div class="container">
-      <p class="float-end mb-1">
-        <a href="#">Back to top</a>
-      </p>
-      <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-      <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a
-          href="../getting-started/introduction/">getting started guide</a>.</p>
+    <div class="container text-center">
+      <p class="mb-1">ESD G09 Team 02</p>
     </div>
   </footer>
 
@@ -442,12 +500,14 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
     crossorigin="anonymous"></script>
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
 
 
 </body>
