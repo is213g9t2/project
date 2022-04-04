@@ -65,9 +65,9 @@
                 </ul>
 
                 <div class="text-end text-white">
-                    <span>Hello, </span>
-                    <span id="customername" ></span>
+                    <span id="customername" class="mx-3"></span>
                     <span id="custID" hidden></span>
+                    <button type="button" class="btn btn-warning btn-sm" onclick="logout()">Log Out</button>
                 </div>
         
                 <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -154,7 +154,12 @@
     <script>
         var customerID = sessionStorage.getItem('customerid')
         var customername = sessionStorage.getItem('customername')
-        document.getElementById("customername").innerText = customername
+        document.getElementById("customername").innerText = "Hello, " + customername
+
+        if (customerID == null) {
+          window.location.href = "signin.html"
+        }
+
         console.log("#####CUSTOMER ID#####")
         console.log(customerID)
         console.log("#####################")
@@ -282,6 +287,22 @@
 
 
     </script>
+
+    <script>
+        function logout() {
+        sessionStorage.clear()
+
+        var newWindow = window.open('https://google.com/accounts/Logout', 'Disconnect from Google', 'width=500,height=400,menubar=no,status=no,location=no,toolbar=no,scrollbars=no,top=200,left=200');
+        setTimeout(function () {
+          if (newWindow) newWindow.close();
+          var url = "signin.html"
+          window.open(url, '_top')
+        }, 100);
+
+      }
+    </script>
+
+
 </body>
 
 </html>
