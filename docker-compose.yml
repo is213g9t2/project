@@ -30,7 +30,7 @@ services:
     environment:
       PYTHONUNBUFFERED: 1
     ports:
-      - "5515:5515"
+      - "5505:5505"
     
 
   ####################################
@@ -77,33 +77,36 @@ services:
   ###############################################
   # Place Order: The Place Order microservice
   ###############################################
-  payment:
-    build:
-      context: ./
-      dockerfile: payment.Dockerfile
-    image: estherweehy/payment:project
-    restart: always
-    depends_on:
-      - rabbitmq
-      - activepolicies
-    environment:
-      rabbit_host: rabbitmq
-      rabbit_port: 5672
-      PYTHONUNBUFFERED: 1
-    ports:
-      - "5501:5501"
+
+
+
+  # payment:
+  #   build:
+  #     context: ./
+  #     dockerfile: payment.Dockerfile
+  #   image: estherweehy/payment:project
+  #   restart: always
+  #   depends_on:
+  #     - rabbitmq
+  #     - activepolicies
+  #   environment:
+  #     rabbit_host: rabbitmq
+  #     rabbit_port: 5672
+  #     PYTHONUNBUFFERED: 1
+  #   ports:
+  #     - "5501:5501"
   
 
-  makepayment:
-    build:
-      context: ./
-      dockerfile: makepayment.Dockerfile
-    image: estherweehy/makepayment:project
-    restart: always
-    depends_on:
-      - rabbitmq
-      - payment
-    environment:
-      PYTHONUNBUFFERED: 1
-    ports:
-      - "5561:5561"
+  # makepayment:
+  #   build:
+  #     context: ./
+  #     dockerfile: makepayment.Dockerfile
+  #   image: estherweehy/makepayment:project
+  #   restart: always
+  #   depends_on:
+  #     - rabbitmq
+  #     - payment
+  #   environment:
+  #     PYTHONUNBUFFERED: 1
+  #   ports:
+  #     - "5561:5561"

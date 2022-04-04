@@ -6,6 +6,7 @@ import json
 
 app = Flask(__name__)
 CORS(app)
+
 cred_obj = firebase_admin.credentials.Certificate('esdg9t02-insurance-firebase-adminsdk-umgr1-f4dd6e06a6.json')
 default_app = firebase_admin.initialize_app(cred_obj, {
 	'databaseURL':'https://esdg9t02-insurance-default-rtdb.asia-southeast1.firebasedatabase.app/'
@@ -65,4 +66,4 @@ def create_insurance():
 # ref.update(file_contents)
 
 if __name__ == "__main__":
-    app.run(port='5500',debug=True)
+    app.run(host='0.0.0.0', port='5500',debug=True)
