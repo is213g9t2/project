@@ -115,11 +115,11 @@ def get_details(s):
     
     catalogID = signupdetails[1]
     
-    phoneNumber = signupdetails[3]
+    phoneNumber = signupdetails[2]
 
-    specificCountry = signupdetails[4]
-    startDate = signupdetails[5]
-    endDate = signupdetails[6]
+    specificCountry = signupdetails[3]
+    startDate = signupdetails[4]
+    endDate = signupdetails[5]
 
     ref = db.reference("/Catalog/" + catalogID)
     data = ref.get()
