@@ -6,10 +6,14 @@ import json
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/test/<string:details>", methods=['GET'])
+def customer22(details):
+    print("aaaaaa")
+    return 0
 # Customer creates new account
 @app.route("/customer/<string:details>", methods=['POST'])
 def customer(details):
-    print(details)
+    print("aaaaaa")
 
     # Writes new account details to customer.json
     def write_json(details, filename="customer.json"):
@@ -62,4 +66,4 @@ def customer(details):
 # ref.update(file_contents)
 
 if __name__ == "__main__":
-    app.run(port='5505',debug=True)
+    app.run(port='5515',debug=True)
