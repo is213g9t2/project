@@ -15,9 +15,14 @@ Tan Li Qi, liqi.tan.2020@scis.smu.edu.sg
 
 ## Project Description
 
-In the recent years, Insurtech has gained popularity due to its convenience and growing tech literacy amongst those interested to buy insurance. With the rapid growth for fintech capabilities, almost every industry is expected to get disrupted. Insurance, a greatly people-based business, is no different. 
+In recent years, InsurTech has gained popularity due to its convenience and the growing tech literacy amongst those who are interested in buying insurance. Buying insurance online is still a complicated, multi-step process for those unfamiliar with agencies. 
 
-We aim to offer customers the comfort of having an agent assigned to them, following the traditional model of insurance and preserving the human-touch, and further include the convenience of being able to purchase insurance anytime and anywhere. 
+SafeTravel acts as a one-stop platform for customers to purchase travel insurance for their trips, making it convenient for them to purchase anytime and anywhere. We will be focusing on the following user scenarios:
+
+* A new user registers for an account on InsurTech
+* The user signs up for an insurance policy
+* The user makes payment for the insurance policy 
+
 
 ## User Scenario Diagrams
 
