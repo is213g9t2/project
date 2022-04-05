@@ -88,6 +88,8 @@ If you list the images with `docker image ls`, you will see that the required im
 
 # 3. Using the Web Application
 
+Transfer the project folder in to WAMP/MAMP. Launch `localhost/project/signin.html` in a browser
+
 ## 3.1) Sign In Page (signin.html)
 
 Sign in via Google on the Sign In Page (_signin.html_) 
